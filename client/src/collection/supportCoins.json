@@ -1,0 +1,56 @@
+[{
+    "name": "bitcoin", 
+    "symbol": "btc",
+    "point": 2
+},
+{
+    "name": "ethereum", 
+    "symbol": "eth",
+    "point": 2
+},
+{
+    "name": "binancecoin", 
+    "symbol": "bnb",
+    "point": 2
+},
+{
+    "name": "cardano", 
+    "symbol": "ada",
+    "point": 4
+},
+{
+    "name": "solana", 
+    "symbol": "sol",
+    "point": 2
+},
+{
+    "name": "polkadot", 
+    "symbol": "dot",
+    "point": 2
+},
+{
+    "name": "tron", 
+    "symbol": "trx",
+    "point": 5
+},
+{
+    "name": "1inch", 
+    "symbol": "1inch",
+    "point": 4
+},
+{
+    "name": "trust-wallet-token", 
+    "symbol": "twt",
+    "point": 2
+},
+{
+    "name": "dogecoin", 
+    "symbol": "doge",
+    "point": 5
+},
+{
+    "name": "litecoin", 
+    "symbol": "ltc",
+    "point": 2
+}
+]

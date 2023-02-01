@@ -1,0 +1,888 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap');
+
+@import "Colors.scss";
+
+*{
+  padding: 0;
+  margin: 0;
+  font-family: 'Ubuntu', sans-serif;
+  transition: all 0.1s ease-out;
+}
+html {
+  overflow-y:scroll;
+}
+body{
+  background-color: $white;
+}
+*::-webkit-scrollbar {
+  width: 4px;
+}
+*::-webkit-scrollbar-track {
+  background: rgba($color: $black-olive, $alpha: 0.1);
+}
+*::-webkit-scrollbar-thumb {
+  background-color: $black-olive;
+  border-radius: 1px;
+  border: 2px solid rgba($color: $black-olive, $alpha: 0.1);  
+}
+a{
+  text-decoration: none;
+  color: $black-olive;
+}
+.main{
+  margin: auto 5vw;
+}
+.header{
+  color: $black-olive;
+  border-bottom: 3px solid $ghost-white;
+  height: 10vh;
+  min-height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  .logo{
+    font-weight: 700;
+    padding: 0px 10px;
+    font-size: max(4vh, 36px);
+    cursor: pointer;
+  }
+  .menu{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .menu-item{
+      margin: 0px 30px 5px 20px;
+      padding: 0px 0px;
+      font-size: max(2vh, 24px);
+      cursor: pointer;
+      transition: all 0.15s ease-out;
+    }
+    .menu-item:hover{
+      color: $cg-blue;
+    }
+    .menu-item.active{
+      hr{
+        display: block;
+        border-color: $black-olive;
+        width: 86%;
+        background-color: $black-olive;
+        margin: auto;
+        padding: 0px;
+      }
+    }
+    .menu-item.active:hover{
+      hr{
+        border-color: $cg-blue;
+        background-color: $cg-blue;
+        width: 100%;
+        transition: width 0.24s ease-out;
+      }
+    }
+    .menu-item:not(.active){
+      hr{
+        width: 0px;
+        border-width: 0px;
+      }
+    }
+    .icons{
+      display: flex;
+      flex-direction: row;
+      svg{
+        color: $black-olive;
+        display: flex;
+        cursor: pointer;
+        padding: 0px 5px;
+      }
+    }
+    .icons svg:hover{
+      color: $cg-blue
+    }
+  }
+}
+.coin-card{
+  border-radius: 5px;
+  padding: 30px 150px;
+  .short-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    .coin-name{
+      font-weight: 500;
+      font-size: 40px;
+    }
+    .correlation{
+      font-size: 20px;
+      padding-left: 1px;
+      color: rgba($color: $black-olive, $alpha: 0.7);
+    }
+    .coin-logo{
+      margin-right: 10px;
+    }
+  }
+  .rate-and-char{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $black-olive;
+    .characteristics{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      .char{
+        padding-right: 40px;
+        .value{
+          font-size: 24px;
+          font-weight: 400;
+        }
+        .name{
+          font-size: 16px;
+          color: rgba($color: $black-olive, $alpha: 0.7);
+        }
+      }
+    }
+  }
+}
+.my-chart{
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+.chart-navbar{
+  display: flex;
+  flex-direction: row;
+  border-top: 1px solid rgba($color: $black-olive, $alpha: 0.7);
+  .navbar-item{
+    padding: 5px;
+    min-width: 20px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+    color: rgba($color: $black-olive, $alpha: 0.7);
+    cursor: pointer;
+  }
+  .navbar-item.active{
+    color: $cg-blue;
+    border-bottom: 2px solid $cg-blue;
+  }
+}
+.rate{
+  font-size: 36px;
+  font-weight: 500;
+  .rate-block{
+    display: flex;
+    flex-direction: row;
+    .currency{
+      font-size: 16px;
+      color: rgba($color: $black-olive, $alpha: 0.7);
+      display: flex;
+      align-items: flex-end;
+    }
+    .number-of-rate.increase{
+      color: $tiffany-blue
+    }
+    .number-of-rate.decrease{
+      color: $light-coral;
+    }
+  }
+  .change{
+    font-size: 24px;
+    font-weight: 400;
+  }
+}
+.change.change_unaltered{
+  color: rgba($color: $black-olive, $alpha: 0.7);
+}
+.change.change_increase{
+  color: $tiffany-blue;
+}
+.change.change_decrease{
+  color: $light-coral;
+}
+.coins-navbar{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding: 20px 0px;
+  min-width: 200px;
+  margin: auto;
+  svg{
+    color: rgba($color: $black-olive, $alpha: 0.7);
+  }
+  svg.active{
+    color: $black-olive;
+    cursor: default;
+  }
+  svg:not(.active):hover{
+    color: $cg-blue;
+    cursor: pointer;
+  }
+  .search{
+    input{
+      color: rgba($color: $black-olive, $alpha: 0.85);
+    }
+  }
+  .selectShowing{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-right: 30px;
+  }
+  .selectSorting{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+    flex-wrap: nowrap;
+    .toggleDirection{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      svg{
+        max-height: 35px;
+        max-width: 35px;
+      }
+    }
+  }
+  .search{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+.mini-coin-cards{
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 10vw;
+  flex-direction: row;
+  justify-content: space-evenly;
+  .mini-coin-card{
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    padding: 20px;
+    margin: 10px;
+    align-items: flex-start;
+    row-gap: 10px;
+    border-radius: 1px;
+    .mini-coin-card-header{
+      text-transform: uppercase;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      .name{
+        font-weight: 600;
+        font-size: 24px;
+        color:$black-olive;
+        .symbol{
+          color:rgba($color: $black-olive, $alpha: 0.7);
+          font-size: 16px;
+        }
+      }
+      .coin-logo{
+        margin-right: 10px;
+      }
+    }
+    .categories-block{
+      span{
+        color:rgba($color: $black-olive, $alpha: 0.7);
+        font-size: 16px;
+      }
+      .categories{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        .category{
+          padding: 5px 10px;
+          background-color: rgba($color: $cg-blue, $alpha: 0.1);
+          border-radius: 1px;
+          margin: 5px 10px 5px 0px;
+          font-size: 18px;
+          font-weight: 600;
+          color: rgba($color: $black-olive, $alpha: 0.7);
+        }
+      }
+    }
+    .add-info{
+      font-size: 18px;
+      font-weight: 500;
+      p{
+        padding: 5px 0px;
+      }
+    }
+  }
+  .mini-coin-card:hover{
+    background-color: rgba($color: $light-cyan, $alpha: 0.3);
+  }
+}
+.table-of-coins{
+  color: $black-olive;
+  display: grid;
+  min-width: 400px;
+  margin: auto;
+  .title-of-table-of-coins, .row-of-table-of-coins{
+    display: grid;
+    padding: 15px 20px;
+    grid-template-columns: 3fr 2fr 2fr 2fr 2fr 1fr;
+    font-size: 20px;
+    font-weight: 500;
+    svg{
+      max-width: 30px;
+      max-height: 30px;
+    }
+  }
+  .title-of-table-of-coins{
+    background-color: $ghost-white;
+    border-bottom: 1px solid $ghost-white;
+    user-select: none;
+    .title-name, .title-marketCap, .title-totalVolume, .title-price, .title-change{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      cursor: pointer;
+    }
+  }
+  .row-of-table-of-coins{
+    border-bottom: 1px solid $ghost-white;
+    .logo-symbol-name{
+      text-align: left;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .symbol{
+        text-transform: uppercase;
+        padding: 0px 10px;
+      }
+      .name{
+        text-transform: capitalize;
+        font-size: 16px;
+        font-weight: 400;
+      }
+    }
+    .price, .change, .marketCap, .totalVolume, .washlistButton{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .buttons{
+      display: flex;
+      justify-content: flex-end;
+      align-self: center;
+      .washlistButton, .walletButton{
+        margin-left: 20px;
+        display: flex;
+        align-self: center;
+        svg{
+          color: $black-olive;
+        }
+        svg:hover{
+          color: $cg-blue;
+        }
+      }
+      .washlistButton.active{
+        svg{
+          fill: $black-olive;
+          color: $black-olive;
+        }
+        svg:hover{
+          fill: $cg-blue;
+          color: $cg-blue;
+        }
+      }
+      .walletButton{
+        svg{
+          height: 25px;
+          width: 25px;
+        }
+      }
+    }
+  }
+  .row-of-table-of-coins:hover{
+    background-color: $ghost-white;
+  }
+  .row-of-table-of-coins-clear{
+    height: 71px;
+  }
+}
+.pagination-page{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  margin: 15px auto;
+  min-width: 400px; 
+  .select-page{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    font-size: 18px;
+    .page{
+      color: rgba($color: $black-olive, $alpha: 0.85);
+      width: 40px;
+      height: 20px;
+      text-align: center;
+      hr{
+        margin: 5px auto;
+        height: 1px;
+        transition: width 0.24s ease-out;
+      }
+    }
+    .page.active{
+      font-weight: 500;
+      color: $black-olive;
+      hr{
+        width: 90%;
+        background-color: rgba($color: $black-olive, $alpha: 0.85);
+      }
+    }
+    .page:not(.active){
+      cursor: pointer;
+      hr{
+        width: 0%;
+        border-width: 0px;
+      }
+    }
+    .navigator-bottom{
+      color: $black-olive;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      svg{
+        width: 35px;
+        height: 35px;
+      }
+    }
+    .navigator-bottom.disabled{
+      color: rgba($color: $black-olive, $alpha: 0.4);
+      cursor: default;
+    }
+  }
+  .select-limit{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    p{
+      margin-right: 10px;
+    }
+  }
+}
+@media (max-width: 960px) {
+  .table-of-coins{
+    .title-of-table-of-coins, .row-of-table-of-coins{
+      grid-template-columns: 5fr 3fr 2fr 1fr;
+    }
+    .title-of-table-of-coins{
+      .title-marketCap, .title-totalVolume{
+        display: none;
+      }
+    }
+    .row-of-table-of-coins{
+      .marketCap, .totalVolume{
+        display: none;
+      }
+    }
+  }
+}
+
+.user-auth{
+  .title{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    font-size: 36px;
+    margin-left: -7px;
+  }
+  .info{
+    margin: 10px 0px;
+    a{
+      text-decoration: underline;
+      color: $cg-blue;
+      cursor: pointer;
+    }
+  }
+  .companies{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .item{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: 16px;
+      flex-wrap: nowrap;
+      flex-grow: 1;
+      margin: auto 5px;
+      min-width: 14vw;
+      border: 1px solid $black-olive;
+      cursor: pointer;
+      margin-top: 10px;
+      p{
+        margin: auto
+      }
+    }
+    .item:hover{
+      text-decoration: underline;
+    }
+  }
+  .login, .password{
+    margin: 15px 0px;
+    .name{
+      padding-bottom: 10px;
+    }
+    .login-input, .password-input{
+      width: 100%;
+    }
+    svg{
+      cursor: pointer;
+      color: rgba($color: $black-olive, $alpha: 0.7);
+      height: 28px;
+    }
+    .error{
+      color: $light-coral;
+      font-size: 12px;
+      height: 12px;
+      padding-top: 1px;
+    }
+  }
+  .login-and-forgot{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    .forgot-password{
+      cursor: pointer;
+    }
+    .forgot-password:hover{
+      text-decoration: underline;
+    }
+  }
+}
+.modal-washlist, .modal-wallet{
+  min-width: 500px;
+  .title{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    font-size: 36px;
+  }
+  .info{
+    margin: 10px 0px;
+  }
+  .choice{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    button{
+      margin-right: 20px;
+      min-width: 150px;
+    }
+  }
+  .search{
+    margin: 10px auto;
+    input{
+      width: 100%;
+    }
+  }
+  .name, .count, .price{
+    font-size: 18px;
+    margin: 10px auto;
+    p{
+      margin-bottom: 5px;
+    }
+    input{
+      width: 100%;
+    }
+  }
+  .button{
+    display: flex;
+    justify-content: end;
+  }
+  .error{
+    color: $light-coral;
+    font-size: 12px;
+    height: 12px;
+    padding-top: 1px;
+  }
+}
+.washlist{
+  margin-top: 30px;
+  .washlist-navbar{
+    text-align: right;
+    margin-bottom: 10px;
+    button{
+      margin-left: 10px;
+    }
+  }
+  .empty{
+    font-weight: 500;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 10px;
+  }
+}
+.wallet{
+  display: flex;
+  flex-direction: row;
+  color: $black-olive;
+  .left-wallet-menu{
+    width: 25%;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    border-right: 3px solid $ghost-white;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    hr{
+      border: none;
+      border-bottom: 3px solid $ghost-white;
+      margin: 5px 0px;
+    }
+    .icons-and-add{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      .mini-icon-coins{
+        display: flex;
+        flex-direction: row;
+        margin: 0px 10px;
+        .icon{
+          padding: 0px 2px;
+        }
+        p{
+          padding-left: 4px;
+          align-items: flex-end;
+        }
+      }
+    }
+    .buttons{
+      display: flex;
+      flex-direction: row;
+      .add-to-wallet, .edit-wallet, .delete-fron-wallet{
+        color: $black-olive;
+        background-color: $ghost-white;
+        margin-left: 10px;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        svg{
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .add-to-wallet{
+        margin-right: 10px;
+      }
+    }
+    .coins{
+      overflow-y: auto;
+      height: 70vh;
+      .walletIsEmpty{
+        text-align: center;
+        padding: 20px;
+        font-size: 20px;
+      }
+    }
+    .coins::-webkit-scrollbar-thumb{
+      background-color: $spanish-gray;
+    }
+    .item{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      background-color: $ghost-white;
+      padding: 20px 10px;
+      margin: 10px;
+      border-radius: 1px;
+      .buttons{
+        .edit-wallet, .delete-fron-wallet{
+          margin-left: 2px;
+          background-color: transparent;
+        }
+      }
+      .name{
+        font-size: 20px;
+      }
+      .total{
+        font-size: 24px;
+        font-weight: 500;
+      }
+      .icon-and-symbol{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+      }
+      .symbol{
+        padding-left: 10px;
+        font-size: 20px;  
+        text-transform: uppercase;
+      }
+    }
+    .item.active{
+      background-color: rgba($color: $spanish-gray, $alpha: 0.3);
+    }
+  }
+  .wallet-content{
+    width: 100%;
+    padding: 20px;
+    .title{
+      font-size: 32px;
+      font-weight: 500;
+      text-transform: capitalize;
+    }
+    .chart-doughnut{
+      height: 30vw;
+      width: 30vw;
+      display: inline-block;
+      position: relative;
+      .balance{
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        font-weight: 500;
+        color: $black-olive;
+      }
+    }
+  }
+  .contex-coin-menu{
+    background-color: $black-olive;
+    color: $ghost-white;
+    font-size: 20px;
+    font-weight: 200;
+    position: absolute;
+    opacity: 0.9;
+    z-index: 101;
+    .item{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+      padding: 5px;
+      min-width: 150px;
+      cursor: pointer;
+      svg{
+        width: 24px;
+        height: 24px;
+      }
+    }
+    .item:hover{
+      background-color: $spanish-gray;
+    }
+    .item:not(:last-child){
+      border-bottom: $spanish-gray 2px solid;
+    }
+  }
+  .wallet-coin-page{
+    width: 80%;
+    padding: 20px;
+    background-color: $ghost-white;
+    margin: auto;
+    .title-and-more{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .title-and-icon{
+        display: flex;
+        align-items: center;
+        .title{
+          padding: 0px 5px;
+        }
+      }
+      .more{
+        color: $cg-blue;
+      }
+      .more:hover{
+        text-decoration: underline;
+      }
+    }
+    .price-count-and-statistics{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 24px;
+      font-weight: 500;
+      margin: 20px 0px;
+      .count-and-price{
+        display: flex;
+        .count{
+          text-transform: uppercase;
+          margin-right: 10px;
+        }
+        .current-price{
+          color: rgba($color: $black-olive, $alpha: 0.7)
+        }
+      }
+      .statistics{
+        display: flex;
+        flex-direction: column;
+        font-size: 18px;
+        p{
+          text-transform: uppercase;
+          font-size: 14px;
+          color: rgba($color: $black-olive, $alpha: 0.7)
+        }
+      }
+    }
+  }
+  
+}
+
+.input-with-matches{
+  width: 100%;
+  display: inline-block;
+  position: relative;
+  .matches{
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    .match{
+      background-color: white;
+      border: 2px solid $spanish-gray;
+      border-top: none;
+      padding: 5px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      .icon-and-name{
+        display: flex;
+        align-items: center;
+        .name{
+          text-transform: capitalize;
+          padding-left: 5px;
+        }
+      }
+      .symbol{
+        text-transform: uppercase;
+        font-weight: 500;
+        padding-left: 70px;
+      }
+    }
+    .match:hover{
+      background-color: rgba($color: $ghost-white, $alpha: 1);
+    }
+  }
+}

@@ -1,0 +1,45 @@
+@import "../../../styles/Colors.scss";
+
+.MyNumber{
+    color: $black-olive;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    background-color: white;
+    border: 2px solid rgba($color: $black-olive, $alpha: 0.4);
+    .number{
+        padding: 5px 10px;
+        outline: none;
+        width: 30px;
+    }
+    .number::-webkit-inner-spin-button { 
+        display: none;
+    }
+    .number, .numberPlus, .numberMinus{
+        background-color: white;
+        color: rgba($color: $black-olive, $alpha: 0.8);
+        border: none;
+        font-size: 20px;
+        text-align: center;
+        margin: auto;
+    }
+    .numberPlus{
+        border-left: 1px solid rgba($color: $black-olive, $alpha: 0.4);
+    }
+    .numberMinus{
+        border-right: 1px solid rgba($color: $black-olive, $alpha: 0.4);
+    }
+    .numberPlus, .numberMinus{
+        min-width: 25px;
+        cursor: pointer;
+    }
+}
+.MyNumber:hover{
+    border: 2px solid $cg-blue;
+    .numberPlus{
+        border-color: $cg-blue;
+    }
+    .numberMinus{
+        border-color: $cg-blue;
+    }
+}

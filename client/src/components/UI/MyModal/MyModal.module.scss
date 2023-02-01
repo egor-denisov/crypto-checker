@@ -1,0 +1,20 @@
+@import "../../../styles/Colors.scss";
+
+.MyModal{
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top:0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-color: rgba($color: $black-olive, $alpha: 0.3);
+  z-index: 100;
+  .content{
+    min-width: 30vw;
+    background-color: white;
+    border-radius: 1px;
+    padding: 20px 80px;
+  }
+}

@@ -1,0 +1,60 @@
+@import "../../../styles/Colors.scss";
+
+.MyInputRight, .MyInputLeft{
+    color: $black-olive;
+    display: flex;
+    flex-direction: row;
+    .picture{
+        border: 2px solid $black-olive;
+        border-radius: 1px;
+        min-height: 38px;
+        display: flex;
+        align-items: center;
+        svg{
+            max-height: 35px;
+            max-width: 35px;
+        }
+    }
+    input{
+        padding: 5px 30px 5px 15px;
+        font-size: 18px;
+        font-weight: 500;
+        border: 2px solid $black-olive;
+        border-radius: 1px;
+        outline:none;
+    }
+    input:disabled{
+        background-color: $ghost-white;
+        color: $spanish-gray;
+    }
+    .picture, input{
+        transition: all linear 0.3s;
+    }
+}
+.MyInputRight{
+    .picture{
+        border-left: none;
+        padding-right: 4px;
+    }
+    input{
+        border-right: none;
+    }
+}
+.MyInputLeft{
+    .picture{
+        border-right: none;
+    }
+    input{
+        border-left: none;
+    }
+}
+.MyInputRight:hover, .MyInputLeft:hover{
+    .picture, input{
+        border-color: $cg-blue;
+    }
+}
+.MyInputError, .MyInputError:hover{
+    .picture, input{
+        border-color: $light-coral;
+    }
+}
