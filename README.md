@@ -17,7 +17,7 @@ Live demo is not available at the moment
 ## Final product
 
 - Main page:
-![](https://sun9-north.userapi.com/sun9-82/s/v1/ig2/7u7RJKmJDn8nwKNlxwSuosLqcWPDqa0BeqNpnWvgZNnbx7zQlLrZyOFAL4Mz4O2j2uRA2-BEonxy-g4xbiOAlkBN.jpg?size=1915x885&quality=95&type=album "Main page")
+![](https://sun9-west.userapi.com/sun9-61/s/v1/ig2/3CZ4KLihDXtVqT3QBsg118_U0BHzdnUdTTyHZ7skn07mS8FGWK4-_hsDq-9gr7U4yTlMP8oIqzojgHQWLqQTmZWz.jpg?size=1920x883&quality=95&type=album "Main page")
 - Washlist page:
 ![](https://sun9-east.userapi.com/sun9-43/s/v1/ig2/6GfpkvEKmcZGlnDX-m0tezvJCLbGuNCfJKj5DqOAgk1PhSW4Tz6sQnAZRkLxEIYuIyqx9UvkPrc42EeArYPP-4us.jpg?size=1918x888&quality=95&type=album "Washlist page")
 - Authorization window
