@@ -8,14 +8,10 @@ create TABLE users(
 
 create TABLE washlists(
     id SERIAL PRIMARY KEY,
-    washlist JSON,
-    user_id INTEGER,
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    washlist JSON
 );
 
 create TABLE wallets(
     id SERIAL PRIMARY KEY,
-    wallet JSON,
-    user_id INTEGER,
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    wallet JSON
 );
