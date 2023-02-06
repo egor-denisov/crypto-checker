@@ -1,7 +1,7 @@
 
 # Crypto Checker
 
-This part is not ready yet.
+This project is under development.
 
 ## Content
 - [Live Demo](https://github.com/egor-denisov/crypto-checker#live-demo)
