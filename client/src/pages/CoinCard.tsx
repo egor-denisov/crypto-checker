@@ -1,6 +1,4 @@
-import MyChart from '../components/MyChart/MyChart';
 import { useEffect } from 'react';
-import ChartNavbar from '../components/MyChart/ChartNavbar';
 import { useActions } from '../hooks/useActions';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { getCoinPoints } from '../collection/coins';
@@ -10,6 +8,7 @@ import { zerozAfterPoint } from '../utils/createLabels';
 import Rate from '../components/Rate';
 import MyLoader from '../components/UI/MyLoader/MyLoader';
 import { isExist } from '../utils/helper';
+import CoinChart from '../components/CoinChart';
 
 
 const tradingPriceSocket = (name: string, symbol: string, rate: number, setRateCoin: Function) => {
@@ -83,10 +82,7 @@ const CoinCard = () => {
                     </div>
                 </div>
             </div>
-            <div className="chart">
-                <MyChart name={name}/>
-                <ChartNavbar/>
-            </div>
+            <CoinChart name={name}/>
         </div>
     );
 };

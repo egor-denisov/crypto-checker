@@ -9,13 +9,13 @@ import MyInput from './UI/MyInput/MyInput';
 import MyModal from './UI/MyModal/MyModal';
 import { walletErrors } from '../collection/errors';
 import { isExist } from '../utils/helper';
-import { useLoadingRates } from '../hooks/useLoadingRates';
 type props =  {
     coin: string, 
     setVisible: Function, 
-    IsWithInput: boolean
+    IsWithInput: boolean,
+    setActivePart?: Function
 }
-const WalletAddingAlert: FC<props> = ({coin, setVisible, IsWithInput}) => {
+const WalletAddingAlert: FC<props> = ({coin, setVisible, IsWithInput, setActivePart = () => {}}) => {
     const {rates} = useTypedSelector(state => state.coinRates)
     const {data} = useTypedSelector(state => state.user)
     const [inWallet, setInWallet] = useState(data.wallet_keys.includes(coin))
@@ -45,6 +45,7 @@ const WalletAddingAlert: FC<props> = ({coin, setVisible, IsWithInput}) => {
         else{
             ChangeWallet(coinWalletData.coin, coinWalletData, data.wallet, data.wallet_id, "add");
             setVisible(false)
+            setActivePart(coin)
         }
     }
     const onEnter = (e: React.KeyboardEvent) => {

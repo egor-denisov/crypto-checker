@@ -5,10 +5,10 @@ import {RouterProvider, createBrowserRouter} from 'react-router-dom'
 import MiniCoinCards from './pages/MiniCoinCards';
 import Washlist from './pages/Washlist';
 import Wallet from './pages/Wallet';
-import { hideContexWalletMenu } from './store/action-creators/walletContexWalletMenu';
+import { hideContexWalletMenu } from './store/action-creators/walletMenu';
 import { useActions } from './hooks/useActions';
 
-const getRouter = (hideContexWalletMenu: Function) => {
+const getRouter = (hideContexWalletMenu: Function, hideDropdownWalletMenu: Function) => {
   return createBrowserRouter([
     {
       path: "/",
@@ -32,7 +32,7 @@ const getRouter = (hideContexWalletMenu: Function) => {
     },
     {
       path: "/wallet",
-      element: <div onClick={() => hideContexWalletMenu()}>
+      element: <div onClick={() => {hideContexWalletMenu(); hideDropdownWalletMenu()}}>
         <Header active="wallet"/>
         <Wallet/>
       </div>,
@@ -40,10 +40,10 @@ const getRouter = (hideContexWalletMenu: Function) => {
   ]);
 }
 const App = () => {
-  const {hideContexWalletMenu} = useActions()
+  const {hideContexWalletMenu, hideDropdownWalletMenu} = useActions()
   return (
     <div>
-      <RouterProvider router={getRouter(hideContexWalletMenu)} />
+      <RouterProvider router={getRouter(hideContexWalletMenu, hideDropdownWalletMenu)} />
     </div>
   );
 };

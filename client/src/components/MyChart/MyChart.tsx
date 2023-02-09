@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useActions } from '../../hooks/useActions';
 import { Line } from "react-chartjs-2";
@@ -14,6 +14,7 @@ import {
   } from "chart.js";
 import { createLabelsWithOutTime, createLabelsWithTime, getChartValues, getLineValues } from '../../utils/createLabels';
 import { options, defaultChartData } from './settings';
+import { useLoadingRates } from '../../hooks/useLoadingRates';
 
 ChartJS.register(
     CategoryScale,
@@ -24,13 +25,18 @@ ChartJS.register(
     Tooltip,
     Legend
   );
+type props = {
+  name: string,
+  period: number,
+  autoUpdate?: boolean
+}
 
 
-
-const MyChart = ({name} : {name: string}) => {
-    const {error, loading, prices, labels, period} = useTypedSelector(state => state.chart)
-    const {MarketInfo} = useTypedSelector(state => state.coinInfo)
-    const {rate} = MarketInfo
+const MyChart: FC<props> = ({name, period, autoUpdate=false}) => {
+    const {error, loading, prices, labels} = useTypedSelector(state => state.chart)
+    const lastLoadingRate = useTypedSelector(state => state.coinRates.rates[name]?.rate)
+    const currentRate = useTypedSelector(state => state.coinInfo.MarketInfo.rate)
+    const [rate, setRate] = useState(lastLoadingRate)
     const {fetchChart} = useActions()
     const [chartData, setChartData]: [typeof defaultChartData, Function] = useState(defaultChartData)
     useEffect( () => {
@@ -41,8 +47,10 @@ const MyChart = ({name} : {name: string}) => {
                    {...chartData.datasets[1], data: getLineValues(prices[prices.length - 1], prices)}]})
     }, [labels, prices])
     useEffect(() => {
-      setChartData({...chartData, datasets: [{...chartData.datasets[0], data: getChartValues(rate, prices)}, {...chartData.datasets[1], data: getLineValues(rate, prices)}]})
-    }, [rate])
+      if(!autoUpdate) return 
+      setChartData({...chartData, datasets: [{...chartData.datasets[0], data: getChartValues(currentRate, prices)}, {...chartData.datasets[1], data: getLineValues(currentRate, prices)}]})
+    }, [currentRate])
+    useLoadingRates()
     if (loading) {
         return <h1>Loading...</h1>
     }

@@ -13,42 +13,30 @@ import CoinContexMenu from './CoinContexMenu';
 type props = {
     activePart: string, 
     setActivePart: Function,
-    currentBalance: number
+    currentBalance: number,
+    editMode: boolean,
+    AddOrClose: Function,
+    deleteFromWallet: Function,
+    editCoinInWallet: Function,
+    goEditMode: Function
 }
 
-const LeftWalletMenu: FC<props> = ({activePart, setActivePart, currentBalance}) => {
+const LeftWalletMenu: FC<props> = (
+{
+    activePart, setActivePart, currentBalance, AddOrClose, deleteFromWallet, editCoinInWallet, goEditMode, editMode
+}) => {
     const {data} = useTypedSelector(state => state.user)
     const {rates} = useTypedSelector(state => state.coinRates)
-    const {vizible} = useTypedSelector(state => state.walletContexMenu)
-    const [editMode, setEditMode] = useState(false)
-    const [modal, setModal] = useState({vizible: false, activeInput: true})
-    const [modalCoin, setModalCoin] = useState('')
-    const defaultContexMenu = {coin: '', vizible: vizible, X: 0, Y: 0}
+    const {vizibleContexMenu} = useTypedSelector(state => state.walletMenu)
+    const defaultContexMenu = {coin: '', vizible: vizibleContexMenu, X: 0, Y: 0}
     const [ContextMenu, setContextMenu] = useState(defaultContexMenu)
-    const {ChangeWallet, showContexWalletMenu} = useActions()
-    const AddOrClose = () => {
-        setModalCoin("")
-        if(editMode) setEditMode(false)
-        else setModal({vizible: true, activeInput: true})
-    }
-    const deleteFromWallet = (coin: string, e?: React.MouseEvent) => {
-        e?.stopPropagation()
-        ChangeWallet(coin, {count: 0, price: 0}, data.wallet, data.wallet_id, "delete")
-    }
-    const editCoinInWallet = (coin: string, e?: React.MouseEvent) => {
-        e?.stopPropagation()
-        setModal({vizible: true, activeInput: false})
-        setModalCoin(coin)
-    }
-    const goEditMode = () => {
-        setEditMode(true)
-    }
+    const {showContexWalletMenu} = useActions()
     const callCoinContextMenu = (e: React.MouseEvent, coin: string) => {
         e.preventDefault()
         showContexWalletMenu()
         setContextMenu({coin: coin, vizible: true, X: e.pageX, Y: e.pageY})
     }
-    useEffect(() => setContextMenu({...ContextMenu, vizible: vizible}), [vizible])
+    useEffect(() => setContextMenu({...ContextMenu, vizible: vizibleContexMenu}), [vizibleContexMenu])
     return (
         <>
         {ContextMenu.vizible && 
@@ -56,11 +44,6 @@ const LeftWalletMenu: FC<props> = ({activePart, setActivePart, currentBalance}) 
                             goDelete={() => deleteFromWallet(ContextMenu.coin)}
                             left={ContextMenu.X} 
                             top={ContextMenu.Y}/>
-        }
-        {modal.vizible && 
-            <WalletAddingAlert coin={modalCoin} 
-                               setVisible={(vizible: boolean) => setModal({...modal, vizible: vizible})} 
-                               IsWithInput={modal.activeInput}/>
         }
         <div className='left-wallet-menu'>
             

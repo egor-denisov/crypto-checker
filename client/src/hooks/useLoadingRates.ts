@@ -5,9 +5,8 @@ import { useTypedSelector } from "./useTypedSelector";
 
 export const useLoadingRates = () => {
     const {rates} = useTypedSelector(state => state.coinRates)
-    const {fetchCoinRates, setNameCoin} = useActions()
+    const {fetchCoinRates} = useActions()
     useEffect(() => {
-        setNameCoin('')
         if(!isExist(Object.keys(rates)[0])) fetchCoinRates()
     }, [])
 }

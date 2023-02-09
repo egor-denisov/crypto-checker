@@ -74,7 +74,7 @@ const TotalPage: FC<props> = ({walletPercentage, currentBalance}) => {
       })
     }, [isExist(data.wallet_keys[0])])
     return (
-        <div className='wallet-total'>
+        <div className='wallet-page wallet-total'>
             <div className='title'>Total</div>
             <div className='chart-doughnut'>
               <div className="balance">${zerozAfterPoint(currentBalance, 2)}</div>

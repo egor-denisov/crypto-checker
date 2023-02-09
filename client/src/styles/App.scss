@@ -148,6 +148,7 @@ a{
     }
   }
 }
+
 .my-chart{
   margin-bottom: 10px;
   padding-bottom: 10px;
@@ -739,14 +740,30 @@ a{
   .wallet-content{
     width: 100%;
     padding: 20px;
+    .wallet-page{
+      width: 80%;
+      height: 90%;
+      padding: 40px 20px;
+      background-color: $ghost-white;
+      margin: auto;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .header{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
     .title{
       font-size: 32px;
       font-weight: 500;
       text-transform: capitalize;
     }
     .chart-doughnut{
-      height: 30vw;
-      width: 30vw;
+      height: 20vw;
+      width: 20vw;
       display: inline-block;
       position: relative;
       .balance{
@@ -755,7 +772,6 @@ a{
         right: 0;
         bottom: 0;
         left: 0;
-        z-index: -1;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -798,8 +814,9 @@ a{
     padding: 20px;
     background-color: $ghost-white;
     margin: auto;
-    .title-and-more{
+    .title-and-dropdown{
       display: flex;
+      width: 100%;
       justify-content: space-between;
       align-items: center;
       .title-and-icon{
@@ -809,11 +826,28 @@ a{
           padding: 0px 5px;
         }
       }
-      .more{
-        color: $cg-blue;
-      }
-      .more:hover{
-        text-decoration: underline;
+      .wallet-dropdown{
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        justify-content: end;
+        .dropdown{
+          background-color: white;
+          position: absolute;
+          border: 1px solid rgba($color: $ghost-white, $alpha: 1);
+          border-radius: 2px;
+          .item{
+            background-color: rgba($color: $spanish-gray, $alpha: 0.3);
+            padding: 10px 20px;
+            min-width: 100px;
+          }
+          .item:hover{
+            background-color: rgba($color: $spanish-gray, $alpha: 0.7);
+          }
+          .item:not(:last-child){
+            border-bottom: 1px solid rgba($color: $ghost-white, $alpha: 1);
+          }
+        }
       }
     }
     .price-count-and-statistics{
@@ -823,6 +857,7 @@ a{
       font-size: 24px;
       font-weight: 500;
       margin: 20px 0px;
+      width: 100%;
       .count-and-price{
         display: flex;
         .count{
