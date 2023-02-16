@@ -26,7 +26,6 @@ const CoinPage: FC<props> = ({coin, wallet, price, deleteFromWallet, editCoinInW
     useEffect(() => {
         setStatistics(getStatistics({wallet, price}))
     }, [wallet, price])
-
     return (
         <div className='wallet-page wallet-coin-page'>
             <div className="header">

@@ -6,7 +6,12 @@ export type WalletElementType = {
 export type WalletType = {
     [coin: string] : WalletElementType
 }
-export type logpassType = {login: string, password: string}
+export type logpassType = {
+    login: string, 
+    email: string,
+    password: string,
+    confirmPassword: string
+}
 export type UserDataType = {
     id: number, 
     username: string, 

@@ -8,10 +8,10 @@ const MyInput = ({children=<></>, positionPicture="left", condition="", ...props
             {positionPicture==="left"
             ?<>
             <div className={classes.picture}>{children}</div>
-            <input  type="text" {...props}/>
+            <input  {...props}/>
             </>
             :<>
-            <input  type="text" {...props}/>
+            <input {...props}/>
             <div className={classes.picture}>{children}</div>
             </>
             }

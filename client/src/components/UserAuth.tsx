@@ -11,6 +11,7 @@ import { useTypedSelector } from '../hooks/useTypedSelector';
 import { useActions } from '../hooks/useActions';
 import { logpassType } from '../types/userTypes';
 import MyModal from './UI/MyModal/MyModal';
+import { validateEmail } from '../utils/helper';
 
 type props = {
     visible: boolean, 
@@ -18,22 +19,37 @@ type props = {
 }
 const UserAuth: FC<props> = ({visible, setVisible}) => {
     const [hidePassword, setHidePassword] = useState(true)
-    const [condition, setCondition] = useState('signin')
-    const [logpass, setLogpass] = useState({login: '', password: ''})
+    const [condition, setCondition] = useState('registration')
+    const [logpass, setLogpass] = useState({login: '', email: '', password: '', confirmPassword: ''})
     const {error, data} = useTypedSelector(state => state.user)
-    const {checkUser, setErrorAtAuth} = useActions()
+    const {checkUser, registerUser, setErrorAtAuth} = useActions()
     
-    const goLogin = (logpass: logpassType) => {
-        if(logpass.password === "") setErrorAtAuth('Password field is empty')
-        else checkUser(logpass)
+    const goLogin = (data: logpassType) => {
+        if(data.password === "") setErrorAtAuth('Password field is empty')
+        else checkUser({login: data.login, password: data.password})
     }
-    const onTyping = (e: React.FormEvent<HTMLInputElement>, field: keyof typeof logpass) => {
+    const goRegister = (data: logpassType) => {
+        if(data.login === '') setErrorAtAuth('Wrong login')
+        else if(validateEmail(data.email) === null) setErrorAtAuth('Wrong E-mail')
+        else if(data.password === '') setErrorAtAuth('Password field is empty')
+        else if(data.password !== data.confirmPassword) setErrorAtAuth('Password mismatch')
+        else{
+            registerUser({login: data.login, password: data.password, email: data.email})
+        }
+    }
+    const onTyping = (e: React.FormEvent<HTMLInputElement>, field: keyof logpassType) => {
         setLogpass({...logpass, [field]: e.currentTarget.value})
     }
     const onEnter = (e: React.KeyboardEvent) => {
-        if(e.keyCode === 13) goLogin(logpass)
+        if(e.keyCode === 13){
+            switch(condition){
+                case 'login': goLogin(logpass); return;
+                case 'registration': goRegister(logpass); return;
+                default: return;
+            }
+        }
     }
-    const clearLoginField = () => setLogpass({...logpass, login: ""})
+    const clearField = (field: keyof logpassType) => setLogpass({...logpass, [field]: ""})
     const goRegistrationPage = () => setCondition('registration')
     useEffect(() => {
         if(error === "" && data.id !== -1){
@@ -45,24 +61,99 @@ const UserAuth: FC<props> = ({visible, setVisible}) => {
     switch(condition){
         case('registration'):
             return (
-                <MyModal setVisible={setVisible} className="user-auth">
+                <MyModal setVisible={setVisible} className="user-auth registration">
                         <div className="title"><UserSVG/>Registration</div>
                         <div className='info'>Have an account? <a onClick={() => setCondition('signin')}>Sign in here</a></div>
+                        <div className="companies">
+                            <div className="item google">
+                                <LogoGoogleSVG/>
+                                <p>Continue with Google</p>
+                                </div>
+                            <div className="item vk">
+                                <LogoVkSVG/>
+                                <p>Continue with Vk</p>
+                            </div>
+                        </div>
+                        <div className="login">
+                            <p className="name">Create login:</p>
+                            <MyInput className="login-input" 
+                                     placeholder="Your login" 
+                                     value={logpass.login} 
+                                     positionPicture="right"
+                                     onChange={(e: React.FormEvent<HTMLInputElement>) => onTyping(e, "login")}
+                                     condition={["Wrong login", "Login already registered"].includes(error) ? "error" : ""}
+                                     onKeyDown={onEnter}>
+                                        {logpass.login !== "" ? <CrossInCircleSVG onClick={() => clearField("login")}/> : <></>}
+                            </MyInput>
+                            <div className='error'>{["Wrong login", "Login already registered"].includes(error) ? error : ""}</div>
+                        </div>
+                        <div className="email">
+                            <p className="name">E-mail:</p>
+                            <MyInput className="email-input" 
+                                     placeholder="Your e-mail" 
+                                     value={logpass.email} 
+                                     positionPicture="right"
+                                     onChange={(e: React.FormEvent<HTMLInputElement>) => onTyping(e, "email")}
+                                     condition={error === "Wrong E-mail" ? "error" : ""}
+                                     type="email"
+                                     onKeyDown={onEnter}>
+                                        {logpass.email !== "" ? <CrossInCircleSVG onClick={() => clearField("email")}/> : <></>}
+                            </MyInput>
+                            <div className='error'>{error === "Wrong E-mail" ? error : ""}</div>
+                        </div>
+                        <div className="password">
+                            <p className="name">Password:</p>
+                            <MyInput className="password-input" 
+                                     placeholder="Your password" 
+                                     type={hidePassword ?"password" :"text"}
+                                     positionPicture="right"
+                                     value={logpass.password}
+                                     condition={["Password mismatch", "Password field is empty"].includes(error) ? "error" : ""}
+                                     onChange={(e: React.FormEvent<HTMLInputElement>) => onTyping(e, "password")}
+                                     onKeyDown={onEnter}>
+                                     {hidePassword
+                                        ? <EyeSVG onClick={() => setHidePassword(false)}/>
+                                        : <EyeOffSVG onClick={() => setHidePassword(true)}/>
+                                     }
+                            </MyInput>
+                            <div className='error'>{error === "Password field is empty" ? error : ""}</div>
+                        </div>
+                        <div className="password">
+                            <p className="name">Confirm password:</p>
+                            <MyInput className="password-input" 
+                                     placeholder="Repeat your password" 
+                                     type={hidePassword ?"password" :"text"}
+                                     positionPicture="right"
+                                     value={logpass.confirmPassword}
+                                     condition={error === "Password mismatch" ? "error" : ""}
+                                     onChange={(e: React.FormEvent<HTMLInputElement>) => onTyping(e, "confirmPassword")}
+                                     onKeyDown={onEnter}>
+                                     {hidePassword
+                                        ? <EyeSVG onClick={() => setHidePassword(false)}/>
+                                        : <EyeOffSVG onClick={() => setHidePassword(true)}/>
+                                     }
+                            </MyInput>
+                            <div className='error'>{error === "Password mismatch" ? error : ""}</div>
+                        </div>
+                        <div className="login-and-forgot">
+                            <p className='forgot-password'>Forgot password?</p>
+                            <MyButton onClick={() => goRegister(logpass)}>Register</MyButton>
+                        </div>
                 </MyModal>
             )
         case('account'):
             return (
-                <MyModal setVisible={setVisible} className="user-auth">
+                <MyModal setVisible={setVisible} className="user-auth account">
                         <div className="title"><UserSVG/>Account</div>
                         <div className='login'>{data.username}</div>
                 </MyModal>
             )
         default:
             return (
-                <MyModal setVisible={setVisible} className="user-auth">
+                <MyModal setVisible={setVisible} className="user-auth auth">
                         <div className="title"><UserSVG/>Authorization</div>
                         <div className='info'>
-                            Don`t have an account? 
+                            {'Don`t have an account? '}
                             <a onClick={goRegistrationPage}>Register here</a>
                         </div>
                         <div className="companies">
@@ -84,7 +175,7 @@ const UserAuth: FC<props> = ({visible, setVisible}) => {
                                      onChange={(e: React.FormEvent<HTMLInputElement>) => onTyping(e, "login")}
                                      condition={error === "User not found" ? "error" : ""}
                                      onKeyDown={onEnter}>
-                                        {logpass.login !== "" ? <CrossInCircleSVG onClick={clearLoginField}/> : <></>}
+                                        {logpass.login !== "" ? <CrossInCircleSVG onClick={() => clearField("login")}/> : <></>}
                             </MyInput>
                             <div className='error'>{error === "User not found" ? error : ""}</div>
                         </div>

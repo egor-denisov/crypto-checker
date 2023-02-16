@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import ChartNavbar from './MyChart/ChartNavbar';
 import MyChart from './MyChart/MyChart';
 type props = {

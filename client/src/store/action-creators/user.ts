@@ -3,7 +3,7 @@ import { Dispatch } from "redux"
 import { logpassType, UserAction, UserActionTypes, WalletElementType, WalletType, WashListType } from "../../types/userTypes"
 import { isExist } from "../../utils/helper"
 
-export const checkUser = (logpass: logpassType) => {
+export const checkUser = (logpass: Pick<logpassType, "login" | "password">) => {
     return async (dispatch: Dispatch<UserAction>) => {
         try{
            dispatch({type: UserActionTypes.FETCH_CHECKUSER})
@@ -110,5 +110,32 @@ export const clearWallet = (wallet_id: number) => {
          })
          if(response.data.update) dispatch({type: UserActionTypes.UPDATE_WALLET, payload: {}})
       }catch(e){}
+   }
+}
+
+export const registerUser = (data: Omit<logpassType, "confirmPassword">) => {
+   return async (dispatch: Dispatch<UserAction>) => {
+      try{
+         dispatch({type: UserActionTypes.FETCH_CHECKUSER})
+           const res = await axios.post(`http://localhost:1234/api/user/check`, {
+            login: data.login,
+            password: data.password
+           })
+           if(res.data.correct_username) dispatch({type: UserActionTypes.FETCH_CHECKUSER_ERROR, payload: 'Login already registered'})
+           else{
+            const res = await axios.post(`http://localhost:1234/api/user/create`, data)
+            if(!res.data.error) {
+               dispatch({type: UserActionTypes.FETCH_CHECKUSER_SUCCESS, payload: {
+                  ...res.data,
+                  washlist: [],
+                  wallet_keys: [],
+                  wallet: {}
+               }})
+            }
+           }
+      }
+      catch(e){
+
+      }
    }
 }

@@ -508,7 +508,7 @@ a{
     }
   }
   .companies{
-    margin-top: 20px;
+    margin: 10px 0px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -533,12 +533,12 @@ a{
       text-decoration: underline;
     }
   }
-  .login, .password{
+  .login, .password, .email{
     margin: 15px 0px;
     .name{
       padding-bottom: 10px;
     }
-    .login-input, .password-input{
+    .login-input, .password-input, .email-input{
       width: 100%;
     }
     svg{
@@ -564,6 +564,11 @@ a{
     .forgot-password:hover{
       text-decoration: underline;
     }
+  }
+}
+.user-auth.registration{
+  .login, .password, .email{
+    margin: 5px 0px;
   }
 }
 .modal-washlist, .modal-wallet{

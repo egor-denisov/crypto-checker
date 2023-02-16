@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useRef } from 'react';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useActions } from '../../hooks/useActions';
 import { Line } from "react-chartjs-2";
@@ -54,6 +54,12 @@ const MyChart: FC<props> = ({name, period, autoUpdate=false}) => {
     if (loading) {
         return <h1>Loading...</h1>
     }
-    return <div className='my-chart'><Line options={options} data={chartData} height={100} updateMode="resize"/></div>
+    return <div className='my-chart'>
+      <Line options={options} 
+            data={chartData} 
+            height={100} 
+            updateMode="resize"
+      />
+      </div>
 };
 export default MyChart;

@@ -21,8 +21,8 @@ const WalletAddingAlert: FC<props> = ({coin, setVisible, IsWithInput, setActiveP
     const [inWallet, setInWallet] = useState(data.wallet_keys.includes(coin))
     const [coinWalletData, setCoinWalletData] = useState(
         inWallet
-        ? {coin: coin, count: 1, price: Number(zerozAfterPoint(rates[coin].rate, getCoinPoints(coin)))}
-        : {coin: '', count: 1, price: 0}
+        ? {coin: coin, count: data.wallet[coin].count, price: data.wallet[coin].price}
+        : {coin: coin, count: 1, price: Number(zerozAfterPoint(rates[coin].rate, getCoinPoints(coin)))}
     )
     const [addingError, setAddingError] = useState('')
     const {ChangeWallet} = useActions()
@@ -59,7 +59,7 @@ const WalletAddingAlert: FC<props> = ({coin, setVisible, IsWithInput, setActiveP
             : {...coinWalletData, count: 1, price: coinWalletData.coin === "" ? 0 : rates[coinWalletData.coin].rate}
         )
         setInWallet(inWallet)
-    }, [data.wallet_keys.includes(coinWalletData.coin), coinWalletData.coin])
+    }, [data.wallet_keys.includes(coinWalletData.coin), coinWalletData.coin, coin])
     return (
         <MyModal setVisible={setVisible} className="modal-wallet">
             <div className="title">Add coin to your wallet</div>

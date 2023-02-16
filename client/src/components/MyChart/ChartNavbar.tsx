@@ -1,6 +1,4 @@
 import React, { FC } from 'react';
-import { useActions } from '../../hooks/useActions';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 const periodsName = ['1D', '5D', '1M', '3M', '6M', '1Y', '5Y']
 const periodsTime = [1, 5, 30, 90, 180, 360, 1800]

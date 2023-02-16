@@ -1,17 +1,36 @@
 const db = require('../db')
 class UserContoller {
     async createUser(req, res){
-        const {username, password} = req.body
+        const {login, email, password} = req.body
         try{
-            const response = await db.query(`INSERT INTO users (username, password) values ('${username}', '${password}');`)
-            res.json({"success": true})
+            const wallet = await db.query(`INSERT INTO wallets (wallet) values ('{}') RETURNING *;`)
+            const washlist = await db.query(`INSERT INTO washlists (washlist) values ('[]') RETURNING *;`)
+            const data = await db.query(
+                `INSERT INTO users (username, password, email, washlist_id, wallet_id) values 
+                ('${login}', '${password}', '${email}', ${washlist.rows[0].id}, ${wallet.rows[0].id})
+                RETURNING *;`
+            )
+            res.json(
+                {   
+                    error: false,
+                    id: data.rows[0].id,
+                    username: data.rows[0].username, 
+                    password: data.rows[0].password, 
+                    washlist_id: washlist.rows[0].id,
+                    washlist: [],
+                    wallet_id: wallet.rows[0].id,
+                    wallet: {},
+                    wallet_keys: []
+                }
+            )
         }catch(e){
-            res.json({"success": false})
+            console.log(e)
+            res.json({error: true})
         } 
     }
     async checkUser(req, res){
-        const {username, password} = req.body
-        const response = await db.query(`SELECT * FROM users WHERE username='${username}';`)
+        const {login, password} = req.body
+        const response = await db.query(`SELECT * FROM users WHERE username='${login}';`)
         if(response.rows[0] !== undefined){
             if(response.rows[0].password === password){
                 res.json(response.rows[0])
@@ -45,7 +64,6 @@ class UserContoller {
     }
     async changeWallet(req, res){
         const {wallet_id, wallet} = req.body
-        console.log(wallet_id, wallet)
         try{
             const response_wallet = await db.query(`UPDATE wallets SET wallet='${JSON.stringify(wallet)}' WHERE id=${wallet_id};`)
             res.json({"update": true})
