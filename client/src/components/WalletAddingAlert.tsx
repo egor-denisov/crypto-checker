@@ -22,7 +22,7 @@ const WalletAddingAlert: FC<props> = ({coin, setVisible, IsWithInput, setActiveP
     const [coinWalletData, setCoinWalletData] = useState(
         inWallet
         ? {coin: coin, count: data.wallet[coin].count, price: data.wallet[coin].price}
-        : {coin: coin, count: 1, price: Number(zerozAfterPoint(rates[coin].rate, getCoinPoints(coin)))}
+        : {coin: coin, count: 1, price: Number(zerozAfterPoint(rates[coin]?.rate, getCoinPoints(coin)))}
     )
     const [addingError, setAddingError] = useState('')
     const {ChangeWallet} = useActions()
@@ -56,7 +56,7 @@ const WalletAddingAlert: FC<props> = ({coin, setVisible, IsWithInput, setActiveP
         setCoinWalletData(
             inWallet
             ? {...coinWalletData, count: data.wallet[coin].count, price: data.wallet[coin].price}
-            : {...coinWalletData, count: 1, price: coinWalletData.coin === "" ? 0 : rates[coinWalletData.coin].rate}
+            : {...coinWalletData, count: 1, price: coinWalletData.coin === "" ? 0 : rates[coinWalletData.coin]?.rate}
         )
         setInWallet(inWallet)
     }, [data.wallet_keys.includes(coinWalletData.coin), coinWalletData.coin, coin])

@@ -15,6 +15,7 @@ class UserContoller {
                     error: false,
                     id: data.rows[0].id,
                     username: data.rows[0].username, 
+                    email: data.rows[0].email,
                     password: data.rows[0].password, 
                     washlist_id: washlist.rows[0].id,
                     washlist: [],
@@ -51,7 +52,7 @@ class UserContoller {
         const {washlist_id, wallet_id} = req.body
         const response_washlist = await db.query(`SELECT washlist FROM washlists WHERE id=${washlist_id};`)
         const response_wallet = await db.query(`SELECT wallet FROM wallets WHERE id=${wallet_id};`)
-        res.json({"washlist": response_washlist.rows[0].washlist, "wallet": response_wallet.rows[0].wallet})
+        res.json({"washlist": response_washlist?.rows[0]?.washlist, "wallet": response_wallet?.rows[0]?.wallet})
     }
     async changeWashlist(req, res){
         const {washlist_id, washlist} = req.body

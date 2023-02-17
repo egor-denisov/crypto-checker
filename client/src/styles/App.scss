@@ -565,11 +565,38 @@ a{
       text-decoration: underline;
     }
   }
+  .register, .logout{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+  }
 }
 .user-auth.registration{
   .login, .password, .email{
     margin: 5px 0px;
   }
+}
+.user-auth.account{
+  font-size: 16px;
+  .info{
+    .row{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      p{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        svg{
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+    padding: 30px 0px;
+  }
+  
 }
 .modal-washlist, .modal-wallet{
   min-width: 500px;

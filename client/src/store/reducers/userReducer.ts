@@ -6,6 +6,7 @@ const initialUser: UserType = {
     data: {
         id: -1,
         username: '', 
+        email: '',
         password: '', 
         washlist_id: -1,
         washlist: [],
@@ -26,6 +27,8 @@ export const UserReducer = (state = initialUser, action: UserAction) => {
             return {...state, data: {...state.data, washlist: action.payload}}
         case UserActionTypes.UPDATE_WALLET:
             return {...state, data: {...state.data, wallet: action.payload, wallet_keys: Object.keys(action.payload)}}
+        case UserActionTypes.LOGOUT_USER:
+            return initialUser
         default:
             return state
     }

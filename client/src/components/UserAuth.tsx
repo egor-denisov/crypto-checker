@@ -6,6 +6,7 @@ import EyeOffSVG from '../svg/EyeOff'
 import LogoVkSVG from '../svg/LogoVK'
 import LogoGoogleSVG from '../svg/LogoGoogle'
 import CrossInCircleSVG from '../svg/CrossInCircle'
+import EditSVG from '../svg/Edit'
 import MyButton from './UI/MyButton/MyButton';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { useActions } from '../hooks/useActions';
@@ -22,20 +23,23 @@ const UserAuth: FC<props> = ({visible, setVisible}) => {
     const [condition, setCondition] = useState('registration')
     const [logpass, setLogpass] = useState({login: '', email: '', password: '', confirmPassword: ''})
     const {error, data} = useTypedSelector(state => state.user)
-    const {checkUser, registerUser, setErrorAtAuth} = useActions()
+    const {checkUser, registerUser, logoutUser, setErrorAtAuth} = useActions()
     
     const goLogin = (data: logpassType) => {
         if(data.password === "") setErrorAtAuth('Password field is empty')
         else checkUser({login: data.login, password: data.password})
     }
-    const goRegister = (data: logpassType) => {
-        if(data.login === '') setErrorAtAuth('Wrong login')
-        else if(validateEmail(data.email) === null) setErrorAtAuth('Wrong E-mail')
-        else if(data.password === '') setErrorAtAuth('Password field is empty')
-        else if(data.password !== data.confirmPassword) setErrorAtAuth('Password mismatch')
+    const goRegister = (logpass: logpassType) => {
+        if(logpass.login === '') setErrorAtAuth('Wrong login')
+        else if(validateEmail(logpass.email) === null) setErrorAtAuth('Wrong E-mail')
+        else if(logpass.password === '') setErrorAtAuth('Password field is empty')
+        else if(logpass.password !== logpass.confirmPassword) setErrorAtAuth('Password mismatch')
         else{
-            registerUser({login: data.login, password: data.password, email: data.email})
+            registerUser({login: logpass.login, password: logpass.password, email: logpass.email, washlist: data.washlist, wallet: data.wallet})
         }
+    }
+    const goLogout = () => {
+        logoutUser()
     }
     const onTyping = (e: React.FormEvent<HTMLInputElement>, field: keyof logpassType) => {
         setLogpass({...logpass, [field]: e.currentTarget.value})
@@ -55,6 +59,9 @@ const UserAuth: FC<props> = ({visible, setVisible}) => {
         if(error === "" && data.id !== -1){
             setVisible(false)
             setCondition('account')
+        }else if(data.id === -1){
+            setVisible(false)
+            setCondition('login')
         }
     }, [error, data.id])
     if(!visible) return <></>
@@ -135,8 +142,7 @@ const UserAuth: FC<props> = ({visible, setVisible}) => {
                             </MyInput>
                             <div className='error'>{error === "Password mismatch" ? error : ""}</div>
                         </div>
-                        <div className="login-and-forgot">
-                            <p className='forgot-password'>Forgot password?</p>
+                        <div className="register">
                             <MyButton onClick={() => goRegister(logpass)}>Register</MyButton>
                         </div>
                 </MyModal>
@@ -145,7 +151,19 @@ const UserAuth: FC<props> = ({visible, setVisible}) => {
             return (
                 <MyModal setVisible={setVisible} className="user-auth account">
                         <div className="title"><UserSVG/>Account</div>
-                        <div className='login'>{data.username}</div>
+                        <div className="info">
+                            <div className='row login'>
+                                <p className='caption'>Username: </p>
+                                <p className='value'>{data.username}<EditSVG/></p>
+                            </div>
+                            <div className='row email'>
+                                <p className='caption'>E-mail: </p>
+                                <p className='value'>{data.email}<EditSVG/></p>
+                            </div>
+                        </div>
+                        <div className="logout">
+                            <MyButton onClick={goLogout}>Log out</MyButton>
+                        </div>
                 </MyModal>
             )
         default:

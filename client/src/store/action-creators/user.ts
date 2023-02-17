@@ -1,6 +1,6 @@
 import axios from "axios"
 import { Dispatch } from "redux"
-import { logpassType, UserAction, UserActionTypes, WalletElementType, WalletType, WashListType } from "../../types/userTypes"
+import { logpassType, UserAction, UserActionTypes, UserDataType, WalletElementType, WalletType, WashListType } from "../../types/userTypes"
 import { isExist } from "../../utils/helper"
 
 export const checkUser = (logpass: Pick<logpassType, "login" | "password">) => {
@@ -8,7 +8,7 @@ export const checkUser = (logpass: Pick<logpassType, "login" | "password">) => {
         try{
            dispatch({type: UserActionTypes.FETCH_CHECKUSER})
            const response = await axios.post(`http://localhost:1234/api/user/check`, {
-            username: logpass.login,
+            login: logpass.login,
             password: logpass.password
            })
            const data = response.data;
@@ -113,7 +113,7 @@ export const clearWallet = (wallet_id: number) => {
    }
 }
 
-export const registerUser = (data: Omit<logpassType, "confirmPassword">) => {
+export const registerUser = (data: Omit<logpassType, "confirmPassword"> & Pick<UserDataType, "wallet" | "washlist">) => {
    return async (dispatch: Dispatch<UserAction>) => {
       try{
          dispatch({type: UserActionTypes.FETCH_CHECKUSER})
@@ -127,15 +127,35 @@ export const registerUser = (data: Omit<logpassType, "confirmPassword">) => {
             if(!res.data.error) {
                dispatch({type: UserActionTypes.FETCH_CHECKUSER_SUCCESS, payload: {
                   ...res.data,
-                  washlist: [],
-                  wallet_keys: [],
-                  wallet: {}
+                  washlist: data.washlist,
+                  wallet_keys: Object.keys(data.wallet),
+                  wallet: data.wallet
                }})
+               const wallet = await axios.post(`http://localhost:1234/api/change_wallet`, {
+                  wallet_id: res.data.wallet_id,
+                  wallet: data.wallet
+               })
+               if(wallet.data.update) dispatch({type: UserActionTypes.UPDATE_WALLET, payload: data.wallet})
+               const washlist = await axios.post(`http://localhost:1234/api/change_washlist`, {
+                  washlist_id: res.data.washlist_id,
+                  washlist: data.washlist
+               })
+               if(washlist.data.update) dispatch({type: UserActionTypes.UPDATE_WASHLIST, payload: data.washlist})
             }
            }
       }
       catch(e){
 
+      }
+   }
+}
+export const logoutUser = () => {
+   return async (dispatch: Dispatch<UserAction>) => {
+      try{
+         dispatch({type: UserActionTypes.LOGOUT_USER})
+      }
+      catch(e){
+         
       }
    }
 }

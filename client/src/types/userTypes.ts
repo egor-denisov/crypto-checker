@@ -15,6 +15,7 @@ export type logpassType = {
 export type UserDataType = {
     id: number, 
     username: string, 
+    email: string,
     password: string, 
     washlist_id: number, 
     washlist: WashListType,
@@ -32,7 +33,8 @@ export enum UserActionTypes {
     FETCH_CHECKUSER_SUCCESS = "FETCH_CHECKUSER_SUCCESS",
     FETCH_CHECKUSER_ERROR = "FETCH_CHECKUSER_ERROR",
     UPDATE_WASHLIST = "UPDATE_WASHLIST",
-    UPDATE_WALLET = "UPDATE_WALLET"
+    UPDATE_WALLET = "UPDATE_WALLET",
+    LOGOUT_USER = "LOGOUT_USER"
 }
 interface CheckUserAction {
     type: UserActionTypes.FETCH_CHECKUSER,
@@ -53,5 +55,8 @@ interface ChangeWallet {
     type: UserActionTypes.UPDATE_WALLET,
     payload: WalletType
 }
+interface LogoutUser {
+    type: UserActionTypes.LOGOUT_USER
+}
 
-export type UserAction =  CheckUserAction | CheckUserSuccessAction | CheckUserErrorAction | ChangeWashlist | ChangeWallet
+export type UserAction =  CheckUserAction | CheckUserSuccessAction | CheckUserErrorAction | ChangeWashlist | ChangeWallet | LogoutUser
