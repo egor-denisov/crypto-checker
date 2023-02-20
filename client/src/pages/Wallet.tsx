@@ -50,7 +50,8 @@ const Wallet = () => {
     }, [data.wallet, rates])
     useEffect(() => {
         setNameCoin("")
-    }, [])
+        setActivePart("total")
+    }, [data.id])
     useLoadingRates()
     return (
         <div className="wallet">

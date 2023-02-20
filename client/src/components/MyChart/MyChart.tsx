@@ -14,7 +14,7 @@ import {
   } from "chart.js";
 import { createLabelsWithOutTime, createLabelsWithTime, getChartValues, getLineValues } from '../../utils/createLabels';
 import { options, defaultChartData } from './settings';
-import { useLoadingRates } from '../../hooks/useLoadingRates';
+import MyLoader from '../UI/MyLoader/MyLoader';
 
 ChartJS.register(
     CategoryScale,
@@ -50,10 +50,7 @@ const MyChart: FC<props> = ({name, period, autoUpdate=false}) => {
       if(!autoUpdate) return 
       setChartData({...chartData, datasets: [{...chartData.datasets[0], data: getChartValues(currentRate, prices)}, {...chartData.datasets[1], data: getLineValues(currentRate, prices)}]})
     }, [currentRate])
-    useLoadingRates()
-    if (loading) {
-        return <h1>Loading...</h1>
-    }
+    if (loading) return <MyLoader/>
     return <div className='my-chart'>
       <Line options={options} 
             data={chartData} 

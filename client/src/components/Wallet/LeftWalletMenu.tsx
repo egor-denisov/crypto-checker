@@ -7,7 +7,6 @@ import CoinIcon from '../CoinIcon';
 import PlusSVG from '../../svg/Plus'
 import EditSVG from '../../svg/Edit'
 import TrashSVG from '../../svg/Trash'
-import WalletAddingAlert from '../WalletAddingAlert';
 import { isExist, uniteClasses } from '../../utils/helper';
 import CoinContexMenu from './CoinContexMenu';
 type props = {

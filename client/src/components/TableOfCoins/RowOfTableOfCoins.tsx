@@ -41,7 +41,7 @@ const RowOfTableOfCoins = ({coinsData, userData, showWahlistButton, showWalletBu
                                                   setVisible={setVizibleWalletAlert} 
                                                   IsWithInput={false}/>
         }
-        <Link to={"coins/"+name}>
+        <Link to={"/coins/" + name}>
         <div className='row-of-table-of-coins'>
             
             <div className="logo-symbol-name">

@@ -1,5 +1,3 @@
-import React from 'react';
-import { CSSTransition } from 'react-transition-group';
 import classes from './MyLoader.module.scss'
 import "./MyLoader.animations.scss"
 const MyLoader = () => {

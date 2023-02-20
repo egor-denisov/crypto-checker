@@ -50,7 +50,9 @@ const CoinPage: FC<props> = ({coin, wallet, price, deleteFromWallet, editCoinInW
                     </div>
                 </div>
             </div>
-            <CoinChart name={coin} withoutNavbar/>
+            <div className="main">
+                <CoinChart name={coin} withoutNavbar/>
+            </div>
         </div>
     );
 };
