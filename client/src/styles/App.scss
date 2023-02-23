@@ -491,7 +491,7 @@ a{
   }
 }
 
-.user-auth{
+.user-auth, .setting{
   .title{
     display: flex;
     flex-direction: row;
@@ -576,25 +576,27 @@ a{
     margin: 5px 0px;
   }
 }
-.user-auth.account{
+.user-auth.account, .setting{
   font-size: 16px;
   .info{
-    .row{
+    padding: 30px 0px;
+  }
+  .row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px auto;
+    p{
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
-      p{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        svg{
-          width: 24px;
-          height: 24px;
-        }
+      flex-wrap: wrap;
+      svg{
+        width: 24px;
+        height: 24px;
       }
     }
-    padding: 30px 0px;
   }
   
 }

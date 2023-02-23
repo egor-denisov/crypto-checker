@@ -1,8 +1,9 @@
 import React from 'react';
+import { uniteClasses } from '../../../utils/helper';
 import classes from './MyButton.module.scss'
-const MyButton = ({children, ...props}) => {
+const MyButton = ({children, className='', ...props}) => {
     return (
-        <button className={classes.MyButton} {...props}>
+        <button className={uniteClasses([classes.MyButton, className]) } {...props}>
             {children}
         </button>
     );
