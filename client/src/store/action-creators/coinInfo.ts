@@ -6,7 +6,7 @@ export const fetchCoinInfo = (name = '') => {
     if(name === '') return async (dispatch: Dispatch<CoinInfoAction>) => {}
     return async (dispatch: Dispatch<CoinInfoAction>) => {
          try{
-            console.log('FETCHCOININFO')
+            console.log('FETCHCOININFO', name)
             dispatch({type: CoinInfoActionTypes.FETCH_COININFO})
             const responseInfo = await axios.get(`https://api.coingecko.com/api/v3/coins/markets`, {
                 params: {vs_currency: 'usd', 
@@ -42,6 +42,7 @@ export const fetchCoinInfo = (name = '') => {
     }
 }
 export const setNameCoin = (name: string): CoinInfoAction => {
+    console.log('new name', name)
     return {type: CoinInfoActionTypes.SET_NAME_COIN, payload: name}
 }
 export const setRateCoin = (rate: number): CoinInfoAction => {

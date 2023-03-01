@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useActions } from '../hooks/useActions';
 import { useTypedSelector } from '../hooks/useTypedSelector';
-import { getCoinPoints } from '../collection/coins';
+import { getCoinPoints, getSymbol } from '../collection/coins';
 import CoinIcon from '../components/CoinIcon';
 import {useParams} from 'react-router-dom';
 import { zerozAfterPoint } from '../utils/createLabels';
@@ -16,7 +16,7 @@ const tradingPriceSocket = (name: string, symbol: string, rate: number, setRateC
         const socket = new WebSocket(`wss://fstream.binance.com/stream?streams=${symbol}usdt@ticker/${symbol}usdt@ticker`)
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data)
-            console.log(rate, data.data.c)
+            //console.log(rate, data.data.c)
             if(Math.abs(rate-data.data.c) > 5){ // rate принимает за 0
                 setRateCoin(data.data.c)
             }
@@ -30,15 +30,14 @@ const CoinCard = () => {
     const {marketCap, fdmarketCap, totalVolume, circulatatingSupply, maxSupply, change, rate} = MarketInfo
     const {setRateCoin, setNameCoin, fetchCoinInfo} = useActions()
     useEffect(() => {
-        if(coin !== undefined) setNameCoin(coin)
-    }, [coin])
-    useEffect(() => {
-        fetchCoinInfo(name)
-        const socket = tradingPriceSocket(name, symbol, rate, setRateCoin)
+        const n = coin !== undefined ? coin : ''
+        setNameCoin(n)
+        fetchCoinInfo(n)
+        const socket = tradingPriceSocket(n, getSymbol(n), rate, setRateCoin)
         return () => {
             if(socket !== undefined) socket.close();
         }
-    }, [name])
+    }, [coin])
     if(loading){
         return <MyLoader/>
     }
@@ -82,7 +81,9 @@ const CoinCard = () => {
                     </div>
                 </div>
             </div>
-            <CoinChart name={name}/>
+            <div className='main'>
+                <CoinChart name={name} autoUpdate/>
+            </div>
         </div>
     );
 };

@@ -1,17 +1,16 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import ChartNavbar from './MyChart/ChartNavbar';
 import MyChart from './MyChart/MyChart';
 type props = {
     name: string,
     withoutNavbar?: boolean,
-    defaultPeriod?: number
+    autoUpdate?: boolean
 }
-const CoinChart: FC<props> = ({name, defaultPeriod=30, withoutNavbar=false}) => {
-    const [period, setPeriod] = useState(defaultPeriod)
+const CoinChart: FC<props> = ({name, withoutNavbar = false, autoUpdate = false}) => {
     return (
         <div className="chart" key={name}>
-            <MyChart name={name} period={period}/>
-            {!withoutNavbar && <ChartNavbar period={period} setPeriod={setPeriod}/>}
+            <MyChart name={name} autoUpdate={autoUpdate}/>
+            {!withoutNavbar && <ChartNavbar/>}
         </div>
     );
 };

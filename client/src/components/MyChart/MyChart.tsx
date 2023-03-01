@@ -27,21 +27,20 @@ ChartJS.register(
   );
 type props = {
   name: string,
-  period: number,
   autoUpdate?: boolean
 }
 
 
-const MyChart: FC<props> = ({name, period, autoUpdate=false}) => {
-    const {error, loading, prices, labels} = useTypedSelector(state => state.chart)
+const MyChart: FC<props> = ({name, autoUpdate=false}) => {
+    const {error, loading, prices, labels, period} = useTypedSelector(state => state.chart)
     const lastLoadingRate = useTypedSelector(state => state.coinRates.rates[name]?.rate)
     const currentRate = useTypedSelector(state => state.coinInfo.MarketInfo.rate)
     const [rate, setRate] = useState(lastLoadingRate)
     const {fetchChart} = useActions()
     const [chartData, setChartData]: [typeof defaultChartData, Function] = useState(defaultChartData)
-    useEffect( () => {
-        fetchChart(period, name)
-    }, [period, name])
+    useEffect(() => {
+      fetchChart(autoUpdate ? period : 30, name)
+    }, [period, name, autoUpdate])
     useEffect( () => {
       setChartData({...chartData, labels: [...(period < 180 ?createLabelsWithTime(labels) : createLabelsWithOutTime(labels))], datasets: [{...chartData.datasets[0], data: [...prices, rate]}, 
                    {...chartData.datasets[1], data: getLineValues(prices[prices.length - 1], prices)}]})
