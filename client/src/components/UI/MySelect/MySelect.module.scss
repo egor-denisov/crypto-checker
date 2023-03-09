@@ -1,18 +1,18 @@
-@import "../../../styles/Colors.scss";
+@import '../../../styles/Colors.scss';
 
-.MySelect{
-    color: $black-olive;
-    border: 2px solid $black-olive;
-    padding: 5px 30px 5px 5px;
-    font-size: 18px;
-    font-weight: 500;
-    border-radius: 1px;
-    cursor: pointer;
-    min-width: 200px;
-    height: 42px;
-    text-transform: capitalize;
+.MySelect {
+	color: $black-olive;
+	border: 2px solid $black-olive;
+	padding: 5px 30px 5px 5px;
+	font-size: 18px;
+	font-weight: 500;
+	border-radius: 1px;
+	cursor: pointer;
+	min-width: 200px;
+	height: 42px;
+	text-transform: capitalize;
 }
-.MySelect:hover{
-    border-color: $cg-blue;
-    color: $cg-blue;
+.MySelect:hover {
+	border-color: $cg-blue;
+	color: $cg-blue;
 }

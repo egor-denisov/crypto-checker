@@ -1,15 +1,14 @@
-@import "../../../styles/Colors.scss";
+@import '../../../styles/Colors.scss';
 
-.MyToogle{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-width: 250px;
-    .disable{
-        background-color: transparent;
-        border: 1px solid rgba($color: $cg-blue, $alpha: 0.15);
-        
-    }
-    .disable:hover{
-        background-color: rgba($color: $ghost-white, $alpha: 0.4);
-    }
+.MyToogle {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	min-width: 250px;
+	.disable {
+		background-color: transparent;
+		border: 1px solid rgba($color: $cg-blue, $alpha: 0.15);
+	}
+	.disable:hover {
+		background-color: rgba($color: $ghost-white, $alpha: 0.4);
+	}
 }

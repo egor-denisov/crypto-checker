@@ -1,62 +1,68 @@
 export type WashListType = string[]
 export type WalletElementType = {
-    count: number
-    price: number
+	count: number
+	price: number
 }
 export type WalletType = {
-    [coin: string] : WalletElementType
+	[coin: string]: WalletElementType
 }
 export type logpassType = {
-    login: string, 
-    email: string,
-    password: string,
-    confirmPassword: string
+	login: string
+	email: string
+	password: string
+	confirmPassword: string
 }
 export type UserDataType = {
-    id: number, 
-    username: string, 
-    email: string,
-    password: string, 
-    washlist_id: number, 
-    washlist: WashListType,
-    wallet_id: number, 
-    wallet: WalletType,
-    wallet_keys: string[]
+	id: number
+	username: string
+	email: string
+	password: string
+	washlist_id: number
+	washlist: WashListType
+	wallet_id: number
+	wallet: WalletType
+	wallet_keys: string[]
 }
 export type UserType = {
-    loading: boolean, 
-    error: string, 
-    data: UserDataType
+	loading: boolean
+	error: string
+	data: UserDataType
 }
 export enum UserActionTypes {
-    FETCH_CHECKUSER = "FETCH_CHECKUSER",
-    FETCH_CHECKUSER_SUCCESS = "FETCH_CHECKUSER_SUCCESS",
-    FETCH_CHECKUSER_ERROR = "FETCH_CHECKUSER_ERROR",
-    UPDATE_WASHLIST = "UPDATE_WASHLIST",
-    UPDATE_WALLET = "UPDATE_WALLET",
-    LOGOUT_USER = "LOGOUT_USER"
+	FETCH_CHECKUSER = 'FETCH_CHECKUSER',
+	FETCH_CHECKUSER_SUCCESS = 'FETCH_CHECKUSER_SUCCESS',
+	FETCH_CHECKUSER_ERROR = 'FETCH_CHECKUSER_ERROR',
+	UPDATE_WASHLIST = 'UPDATE_WASHLIST',
+	UPDATE_WALLET = 'UPDATE_WALLET',
+	LOGOUT_USER = 'LOGOUT_USER'
 }
 interface CheckUserAction {
-    type: UserActionTypes.FETCH_CHECKUSER,
+	type: UserActionTypes.FETCH_CHECKUSER
 }
 interface CheckUserSuccessAction {
-    type: UserActionTypes.FETCH_CHECKUSER_SUCCESS,
-    payload: UserDataType
+	type: UserActionTypes.FETCH_CHECKUSER_SUCCESS
+	payload: UserDataType
 }
 interface CheckUserErrorAction {
-    type: UserActionTypes.FETCH_CHECKUSER_ERROR,
-    payload: string
+	type: UserActionTypes.FETCH_CHECKUSER_ERROR
+	payload: string
 }
 interface ChangeWashlist {
-    type: UserActionTypes.UPDATE_WASHLIST,
-    payload: WashListType
+	type: UserActionTypes.UPDATE_WASHLIST
+	payload: WashListType
 }
 interface ChangeWallet {
-    type: UserActionTypes.UPDATE_WALLET,
-    payload: WalletType
+	type: UserActionTypes.UPDATE_WALLET
+	payload: WalletType
 }
 interface LogoutUser {
-    type: UserActionTypes.LOGOUT_USER
+	type: UserActionTypes.LOGOUT_USER
 }
 
-export type UserAction =  CheckUserAction | CheckUserSuccessAction | CheckUserErrorAction | ChangeWashlist | ChangeWallet | LogoutUser
+export type UserAction =
+	| CheckUserAction
+	| CheckUserSuccessAction
+	| CheckUserErrorAction
+	| ChangeWashlist
+	| ChangeWallet
+	| LogoutUser

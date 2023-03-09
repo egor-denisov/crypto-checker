@@ -4,9 +4,9 @@ import * as CoinRatesActionCreators from './coinRates'
 import * as UserActionCreators from './user'
 import * as WalletMenu from './walletMenu'
 export default {
-    ...ChartActionCreators,
-    ...CoinInfoActionCreators,
-    ...CoinRatesActionCreators,
-    ...UserActionCreators,
-    ...WalletMenu
+	...ChartActionCreators,
+	...CoinInfoActionCreators,
+	...CoinRatesActionCreators,
+	...UserActionCreators,
+	...WalletMenu
 }

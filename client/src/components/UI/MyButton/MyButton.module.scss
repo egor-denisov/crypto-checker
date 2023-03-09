@@ -1,12 +1,12 @@
-@import "../../../styles/Colors.scss";
+@import '../../../styles/Colors.scss';
 
-.MyButton{
-    padding: 10px 30px;
-    border-radius: 1px;
-    background-color: rgba($color: $cg-blue, $alpha: 0.15);
-    border: 1px solid transparent;
-    cursor: pointer;
-    color: $black-olive;
-    font-size: 18px;
-    font-weight: 500;
+.MyButton {
+	padding: 10px 30px;
+	border-radius: 1px;
+	background-color: rgba($color: $cg-blue, $alpha: 0.15);
+	border: 1px solid transparent;
+	cursor: pointer;
+	color: $black-olive;
+	font-size: 18px;
+	font-weight: 500;
 }
