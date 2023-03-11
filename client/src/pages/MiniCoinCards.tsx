@@ -1,8 +1,7 @@
-import React, { useState, useEffect, FC } from 'react'
+import { useState, FC } from 'react'
 import MiniCoinCard from '../components/MiniCoinCard'
 import { getCountOfPages } from '../utils/sortingAndSearchingCoins'
 import SortingNavbar from '../components/CoinsNavbar'
-import { useActions } from '../hooks/useActions'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 import TitleOfTableOfCoins from '../components/TableOfCoins/TitleOfTableOfCoins'
 import { coins } from '../collection/coins'
@@ -80,7 +79,12 @@ const MiniCoinCards: FC = () => {
 					/>
 				</CoinsTable>
 			)}
-			<Pagination pagination={pagination} setPagination={setPagination} />
+			{isExist(massivOfCoins[0]) && (
+				<Pagination
+					pagination={pagination}
+					setPagination={setPagination}
+				/>
+			)}
 		</div>
 	)
 }

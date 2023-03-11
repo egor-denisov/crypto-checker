@@ -53,8 +53,3 @@ export const getChartValues = (rate: number, prices: number[]) => {
 	}
 	return []
 }
-export const zerozAfterPoint = (number: number, count: number): number => {
-	return Number(
-		(Math.floor(number * 10 ** count) / 10 ** count).toFixed(count)
-	)
-}

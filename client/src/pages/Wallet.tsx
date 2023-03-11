@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 import LeftWalletMenu from '../components/Wallet/LeftWalletMenu'
-import { zerozAfterPoint } from '../utils/createLabels'
+import { zerosAfterPoint } from '../utils/helper'
 import { useLoadingRates } from '../hooks/useLoadingRates'
 import TotalPage from '../components/Wallet/TotalPage'
 import CoinPage from '../components/Wallet/CoinPage'
@@ -57,9 +57,12 @@ const Wallet = () => {
 			0
 		)
 		const precentege = data.wallet_keys.map((el) =>
-			zerozAfterPoint(
-				(data.wallet[el].price * data.wallet[el].count * 100) / summ,
-				2
+			Number(
+				zerosAfterPoint(
+					(data.wallet[el].price * data.wallet[el].count * 100) /
+						summ,
+					2
+				)
 			)
 		)
 		setWalletPercentage(precentege)

@@ -4,7 +4,7 @@ import { useTypedSelector } from '../hooks/useTypedSelector'
 import { getCoinPoints, getSymbol } from '../collection/coins'
 import CoinIcon from '../components/CoinIcon'
 import { useParams } from 'react-router-dom'
-import { zerozAfterPoint } from '../utils/createLabels'
+import { getBigNumber } from '../utils/helper'
 import Rate from '../components/Rate'
 import MyLoader from '../components/UI/MyLoader/MyLoader'
 import { isExist } from '../utils/helper'
@@ -78,55 +78,25 @@ const CoinCard = () => {
 				/>
 				<div className="characteristics">
 					<div className="char market-cap">
-						<p className="value">
-							${zerozAfterPoint(marketCap / 1000000000, 3)}B
-						</p>
+						<p className="value">${getBigNumber(marketCap)}</p>
 						<p className="name">MARKET CAP</p>
 					</div>
 					<div className="char market-cap-fd">
-						<p className="value">
-							${zerozAfterPoint(fdmarketCap / 1000000000, 3)}B
-						</p>
+						<p className="value">${getBigNumber(fdmarketCap)}</p>
 						<p className="name">FD MARKET CAP</p>
 					</div>
 					<div className="char trading-volume">
-						<p className="value">
-							${zerozAfterPoint(totalVolume / 1000000000, 3)}B
-						</p>
+						<p className="value">${getBigNumber(totalVolume)}</p>
 						<p className="name">TOTAL VOLUME</p>
 					</div>
 					<div className="char market-cap">
-						{circulatatingSupply > 1000000000 - 1 ? (
-							<p className="value">
-								$
-								{zerozAfterPoint(
-									circulatatingSupply / 1000000000,
-									3
-								)}
-								B
-							</p>
-						) : (
-							<p className="value">
-								$
-								{zerozAfterPoint(
-									circulatatingSupply / 1000000,
-									3
-								)}
-								M
-							</p>
-						)}
+						<p className="value">
+							${getBigNumber(circulatatingSupply)}
+						</p>
 						<p className="name">CIRCULATING SUPPLY</p>
 					</div>
 					<div className="char market-cap">
-						{circulatatingSupply > 1000000000 - 1 ? (
-							<p className="value">
-								${zerozAfterPoint(maxSupply / 1000000000, 3)}B
-							</p>
-						) : (
-							<p className="value">
-								${zerozAfterPoint(maxSupply / 1000000, 3)}M
-							</p>
-						)}
+						<p className="value">${getBigNumber(maxSupply)}</p>
 						<p className="name">MAX SUPPLY</p>
 					</div>
 				</div>

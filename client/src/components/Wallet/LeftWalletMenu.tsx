@@ -2,7 +2,7 @@ import React, { useState, useEffect, FC } from 'react'
 import { getColor, getSymbol } from '../../collection/coins'
 import { useActions } from '../../hooks/useActions'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { zerozAfterPoint } from '../../utils/createLabels'
+import { zerosAfterPoint } from '../../utils/helper'
 import CoinIcon from '../CoinIcon'
 import PlusSVG from '../../svg/Plus'
 import EditSVG from '../../svg/Edit'
@@ -70,7 +70,7 @@ const LeftWalletMenu: FC<props> = ({
 				>
 					<div className="name">Total</div>
 					<div className="total">
-						{zerozAfterPoint(currentBalance, 2)}$
+						{zerosAfterPoint(currentBalance, 2)}$
 					</div>
 				</div>
 				<div className="icons-and-add">
@@ -155,7 +155,7 @@ const LeftWalletMenu: FC<props> = ({
 										</div>
 									) : (
 										<p className="total">
-											{zerozAfterPoint(currentPrice, 2)}$
+											{zerosAfterPoint(currentPrice, 2)}$
 										</p>
 									)}
 								</div>

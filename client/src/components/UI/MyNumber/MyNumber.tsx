@@ -1,51 +1,56 @@
-import React, { useState } from 'react'
+import { FC, useState } from 'react'
 import classes from './MyNumber.module.scss'
-const MyNumber = ({
-	value,
-	max,
-	changeNumber
-}: {
-	value: number
-	max: number
+type props = {
+	value: string | number
 	changeNumber: Function
-}) => {
-	const [tempValue, setTempValue] = useState(value)
-	const change = (newValue: number) => {
-		changeNumber(newValue)
-		setTempValue(newValue)
+}
+const MyNumber: FC<props> = ({ value, changeNumber }) => {
+	const [tempValue, setTempValue] = useState(String(value))
+	const [step, setStep] = useState(String(value).split('.')[1]?.length || 1)
+	const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+		const alpha = '.0123456789'
+		const str = e.currentTarget.value
+		let correct = true
+		for (let i = 0; i < str.length; i++) {
+			if (!alpha.includes(str[i])) correct = false
+		}
+		if (
+			correct &&
+			str.indexOf('.') === str.lastIndexOf('.') &&
+			str[0] !== '.'
+		) {
+			changeNumber(str)
+			setTempValue(str)
+			setStep(1 / 10 ** (str.split('.')[1]?.length || 0))
+		}
+	}
+	const decrease = () => {
+		const res = (Number(value) - step).toFixed(
+			String(tempValue).split('.')[1]?.length || 0
+		)
+		if (Number(res) >= 0) {
+			changeNumber(res)
+			setTempValue(res)
+		}
+	}
+	const increase = () => {
+		const res = (Number(value) + step).toFixed(
+			String(tempValue).split('.')[1]?.length || 0
+		)
+		changeNumber(res)
+		setTempValue(res)
 	}
 	return (
 		<div className={classes.MyNumber}>
-			<div
-				className={classes.numberMinus}
-				onClick={() => {
-					if (value > 1) changeNumber(value - 1)
-				}}
-			>
+			<div className={classes.numberMinus} onClick={decrease}>
 				-
 			</div>
 			<input
 				className={classes.number}
-				type="text"
-				min="1"
-				max={max}
-				step="1"
-				value={value}
-				onChange={(e) => {
-					const newValue = Number(e.target.value)
-					if (newValue) {
-						if (newValue <= max && newValue > 0) change(newValue)
-						else change(newValue - 10 * tempValue)
-					}
-				}}
-				onPaste={(e) => e.preventDefault()}
+				value={String(tempValue)}
+				onChange={onChange}
 			/>
-			<div
-				className={classes.numberPlus}
-				onClick={() => {
-					if (value + 1 <= max) changeNumber(value + 1)
-				}}
-			>
+			<div className={classes.numberPlus} onClick={increase}>
 				+
 			</div>
 		</div>

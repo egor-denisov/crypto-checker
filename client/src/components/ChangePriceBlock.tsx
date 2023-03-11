@@ -1,21 +1,22 @@
-import React from 'react'
+import { FC } from 'react'
 import { getCoinPoints } from '../collection/coins'
 import { ChangeType } from '../types/сoinInfoTypes'
-import { zerozAfterPoint } from '../utils/createLabels'
+import { zerosAfterPoint } from '../utils/helper'
 
-const ChangePriceBlock = ({
-	name,
-	changes,
-	onlyProcentage = false
-}: {
+type props = {
 	name: string
 	changes: ChangeType
 	onlyProcentage?: boolean
+}
+const ChangePriceBlock: FC<props> = ({
+	name,
+	changes,
+	onlyProcentage = false
 }) => {
 	const point = getCoinPoints(name)
 	const [change, change_percentage] = [
-		zerozAfterPoint(changes.change, point),
-		zerozAfterPoint(changes.change_percentage, 2)
+		zerosAfterPoint(changes.change, point),
+		zerosAfterPoint(changes.change_percentage, 2)
 	]
 	const filling =
 		changes.change > 0

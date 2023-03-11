@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ChangeType, MarketInfoType } from '../types/сoinInfoTypes'
-import { zerozAfterPoint } from '../utils/createLabels'
+import { zerosAfterPoint } from '../utils/helper'
 import { uniteClasses } from '../utils/helper'
 import ChangePriceBlock from './ChangePriceBlock'
 
@@ -20,7 +20,7 @@ const Rate = ({
 	checkChanges: boolean
 }) => {
 	const [tempRate, setTempRate] = useState(
-		Number(zerozAfterPoint(rate, numberAfterPoint))
+		Number(zerosAfterPoint(rate, numberAfterPoint))
 	)
 	const [changeAnim, setChangeAnim] = useState({
 		active: false,
@@ -53,8 +53,7 @@ const Rate = ({
 		<div className="rate">
 			<div className="rate-block">
 				{changeAnim
-					? zerozAfterPoint(rate, numberAfterPoint)
-							.toString()
+					? zerosAfterPoint(rate, numberAfterPoint)
 							.split('')
 							.map((number, id) => {
 								if (number === '.')
@@ -86,7 +85,7 @@ const Rate = ({
 									)
 								}
 							})
-					: zerozAfterPoint(rate, numberAfterPoint)
+					: zerosAfterPoint(rate, numberAfterPoint)
 							.toString()
 							.split('')
 							.map((number, id) => {

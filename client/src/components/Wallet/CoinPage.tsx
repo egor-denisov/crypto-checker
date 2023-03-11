@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import { getSymbol } from '../../collection/coins'
 import { WalletElementType } from '../../types/userTypes'
 import { ChangeType } from '../../types/сoinInfoTypes'
-import { zerozAfterPoint } from '../../utils/createLabels'
+import { zerosAfterPoint } from '../../utils/helper'
 import ChangePriceBlock from '../ChangePriceBlock'
 import CoinChart from '../CoinChart'
 import CoinIcon from '../CoinIcon'
@@ -20,8 +20,10 @@ const getStatistics = ({
 }: Pick<props, 'wallet' | 'price'>): ChangeType => {
 	const change = price - wallet?.price
 	return {
-		change: zerozAfterPoint(change, 2),
-		change_percentage: zerozAfterPoint((change / wallet?.price) * 100, 2)
+		change: Number(zerosAfterPoint(change, 2)),
+		change_percentage: Number(
+			zerosAfterPoint((change / wallet?.price) * 100, 2)
+		)
 	}
 }
 const CoinPage: FC<props> = ({
@@ -57,7 +59,10 @@ const CoinPage: FC<props> = ({
 							{wallet?.count} {getSymbol(coin)}
 						</p>
 						<p className="current-price">
-							≈ {wallet?.count * price}$
+							≈{' '}
+							{Math.round(wallet?.count * price * 10 ** 8) /
+								10 ** 8}
+							$
 						</p>
 					</div>
 					<div className="statistics">

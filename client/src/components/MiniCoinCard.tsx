@@ -1,8 +1,8 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { getCoinPoints, getSymbol } from '../collection/coins'
-import { ChangeType, MarketInfoType } from '../types/сoinInfoTypes'
-import { zerozAfterPoint } from '../utils/createLabels'
+import { MarketInfoType } from '../types/сoinInfoTypes'
+import { getBigNumber } from '../utils/helper'
 import CoinIcon from './CoinIcon'
 import Rate from './Rate'
 type props = {
@@ -51,10 +51,8 @@ const MiniCoinCard: FC<props> = ({
 				</div>
 			</div>
 			<div className="add-info">
-				<p>Market Cap: {zerozAfterPoint(marketCap / 1000000000, 3)}B</p>
-				<p>
-					Volume 24h: {zerozAfterPoint(totalVolume / 1000000000, 3)}B
-				</p>
+				<p>Market Cap: ${getBigNumber(marketCap)}</p>
+				<p>Volume 24h: ${getBigNumber(totalVolume)}</p>
 			</div>
 		</Link>
 	)

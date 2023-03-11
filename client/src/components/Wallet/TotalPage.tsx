@@ -1,10 +1,11 @@
-import React, { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { getColor } from '../../collection/coins'
 import { isExist } from '../../utils/helper'
-import { zerozAfterPoint } from '../../utils/createLabels'
+import { zerosAfterPoint } from '../../utils/helper'
+import ChangePriceBlock from '../ChangePriceBlock'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 export const defaultOptions = {
@@ -112,12 +113,37 @@ const TotalPage: FC<props> = ({ walletPercentage, currentBalance }) => {
 	}, [isExist(data.wallet_keys[0])])
 	return (
 		<div className="wallet-page wallet-total">
-			<div className="title">Total</div>
-			<div className="chart-doughnut">
-				<div className="balance">
-					${zerozAfterPoint(currentBalance, 2)}
+			<div className="title-and-dropdown">
+				<div className="title-and-icon">
+					<p className="title">Total</p>
 				</div>
-				<Doughnut data={chartData} options={options} />
+				{/* <WalletDropdown
+						coin={coin}
+						deleteFromWallet={deleteFromWallet}
+						editCoinInWallet={editCoinInWallet}
+					/> */}
+				<div className="price-count-and-statistics">
+					<div className="count-and-price">
+						<p className="current-price">
+							≈ {zerosAfterPoint(currentBalance, 2)}$
+						</p>
+					</div>
+					<div className="statistics">
+						<ChangePriceBlock
+							name={''}
+							changes={{ change: 0, change_percentage: 0 }}
+						/>
+						<p>In your wallet</p>
+					</div>
+				</div>
+			</div>
+			<div className="main">
+				<div className="chart-doughnut">
+					<div className="balance">
+						${zerosAfterPoint(currentBalance, 2)}
+					</div>
+					<Doughnut data={chartData} options={options} />
+				</div>
 			</div>
 		</div>
 	)

@@ -28,7 +28,9 @@ const CoinsTable = ({
 							<div
 								className="row-of-table-of-coins-clear"
 								key={order}
-							></div>
+							>
+								{order === 0 && 'Nothing found...'}
+							</div>
 						)
 					return (
 						<RowOfTableOfCoins

@@ -1,16 +1,18 @@
-import React from 'react'
+import { FC } from 'react'
 import ChevronDownSVG from '../../svg/ChevronDown'
 import ChevronUpSVG from '../../svg/ChevronUp'
-const TitleOfTableOfCoins = ({
-	typeOfSorting,
-	setTypeOfSorting,
-	sortingDirection,
-	setSortingDirection
-}: {
+
+type props = {
 	typeOfSorting: string
 	setTypeOfSorting: Function
 	sortingDirection: string
 	setSortingDirection: Function
+}
+const TitleOfTableOfCoins: FC<props> = ({
+	typeOfSorting,
+	setTypeOfSorting,
+	sortingDirection,
+	setSortingDirection
 }) => {
 	const changeSortingByDblClick = (e: any, newTypeOfSorting: string) => {
 		if (e.detail === 2) {

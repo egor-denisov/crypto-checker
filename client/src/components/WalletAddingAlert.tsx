@@ -2,13 +2,14 @@ import React, { FC, useEffect, useState } from 'react'
 import { getCoinPoints } from '../collection/coins'
 import { useActions } from '../hooks/useActions'
 import { useTypedSelector } from '../hooks/useTypedSelector'
-import { zerozAfterPoint } from '../utils/createLabels'
+import { zerosAfterPoint } from '../utils/helper'
 import InputWithMatches from './InputWithMatches'
 import MyButton from './UI/MyButton/MyButton'
 import MyInput from './UI/MyInput/MyInput'
 import MyModal from './UI/MyModal/MyModal'
 import { walletErrors } from '../collection/errors'
 import { isExist } from '../utils/helper'
+import MyNumber from './UI/MyNumber/MyNumber'
 type props = {
 	coin: string
 	setVisible: Function
@@ -34,24 +35,27 @@ const WalletAddingAlert: FC<props> = ({
 			: {
 					coin: coin,
 					count: 1,
-					price: Number(
-						zerozAfterPoint(rates[coin]?.rate, getCoinPoints(coin))
-					)
+					price:
+						coin === ''
+							? 0
+							: Number(
+									zerosAfterPoint(
+										rates[coin]?.rate,
+										getCoinPoints(coin)
+									)
+							  )
 			  }
 	)
 	const [addingError, setAddingError] = useState('')
 	const { ChangeWallet } = useActions()
 	const changeCountOrPrice = (
-		e: React.FormEvent<HTMLInputElement>,
+		value: string,
 		field: keyof typeof coinWalletData
 	) => {
-		const value = e.currentTarget.value
-		if (value === '') setCoinWalletData({ ...coinWalletData, [field]: 0 })
-		else
-			setCoinWalletData({
-				...coinWalletData,
-				[field]: Number(e.currentTarget.value)
-			})
+		setCoinWalletData({
+			...coinWalletData,
+			[field]: Number(value)
+		})
 	}
 	const setValue = (value: string) => {
 		setAddingError('')
@@ -141,16 +145,10 @@ const WalletAddingAlert: FC<props> = ({
 				</div>
 				<div className="count">
 					<p>Count:</p>
-					<MyInput
+					<MyNumber
 						value={coinWalletData.count}
-						onChange={(e: React.FormEvent<HTMLInputElement>) =>
-							changeCountOrPrice(e, 'count')
-						}
-						onKeyDown={onEnter}
-						condition={
-							addingError === walletErrors.countError
-								? 'error'
-								: ''
+						changeNumber={(value: string) =>
+							changeCountOrPrice(value, 'count')
 						}
 					/>
 					<div className="error">
@@ -161,16 +159,10 @@ const WalletAddingAlert: FC<props> = ({
 				</div>
 				<div className="price">
 					<p>Price:</p>
-					<MyInput
-						value={coinWalletData.price}
-						onChange={(e: React.FormEvent<HTMLInputElement>) =>
-							changeCountOrPrice(e, 'price')
-						}
-						onKeyDown={onEnter}
-						condition={
-							addingError === walletErrors.priceError
-								? 'error'
-								: ''
+					<MyNumber
+						value={Number(coinWalletData.price)}
+						changeNumber={(value: string) =>
+							changeCountOrPrice(value, 'price')
 						}
 					/>
 					<div className="error">
@@ -180,6 +172,7 @@ const WalletAddingAlert: FC<props> = ({
 					</div>
 				</div>
 			</div>
+
 			<div className="button">
 				<MyButton onClick={addCoinToWallet}>
 					{inWallet ? 'Save changes' : 'Add Coin'}

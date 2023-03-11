@@ -12,6 +12,7 @@ import MyModal from './UI/MyModal/MyModal'
 import SearchSVG from '../svg/Search'
 import { coins } from '../collection/coins'
 import { useTypedSelector } from '../hooks/useTypedSelector'
+import { isExist } from '../utils/helper'
 
 const AddingAlert = ({ setVisible }: { setVisible: Function }) => {
 	const [pagination, setPagination] = useState({
@@ -63,7 +64,12 @@ const AddingAlert = ({ setVisible }: { setVisible: Function }) => {
 					setSortingDirection={setSortingDirection}
 				/>
 			</CoinsTable>
-			<Pagination pagination={pagination} setPagination={setPagination} />
+			{isExist(massivOfCoins[0]) && (
+				<Pagination
+					pagination={pagination}
+					setPagination={setPagination}
+				/>
+			)}
 		</MyModal>
 	)
 }

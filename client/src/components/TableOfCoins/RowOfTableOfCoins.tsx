@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getCoinPoints, getSymbol } from '../../collection/coins'
-import { zerozAfterPoint } from '../../utils/createLabels'
+import { zerosAfterPoint } from '../../utils/helper'
 import ChangePriceBlock from '../ChangePriceBlock'
 import CoinIcon from '../CoinIcon'
 import StarSVG from '../../svg/Star'
@@ -10,7 +10,7 @@ import { UserDataType } from '../../types/userTypes'
 import { useActions } from '../../hooks/useActions'
 import WalletAddingAlert from '../WalletAddingAlert'
 import { rateWithNameType } from '../../types/CoinRatesTypes'
-import { isExist, uniteClasses } from '../../utils/helper'
+import { getBigNumber, isExist, uniteClasses } from '../../utils/helper'
 type props = {
 	coinsData: rateWithNameType
 	userData: UserDataType
@@ -80,7 +80,7 @@ const RowOfTableOfCoins = ({
 						<p className="name">{name}</p>
 					</div>
 					<div className="price">
-						${zerozAfterPoint(rate, getCoinPoints(name))}
+						${zerosAfterPoint(rate, getCoinPoints(name))}
 					</div>
 					<div className="change">
 						<ChangePriceBlock
@@ -89,11 +89,9 @@ const RowOfTableOfCoins = ({
 							onlyProcentage
 						/>
 					</div>
-					<div className="marketCap">
-						${zerozAfterPoint(marketCap / 1000000000, 3)}B
-					</div>
+					<div className="marketCap">${getBigNumber(marketCap)}</div>
 					<div className="totalVolume">
-						${zerozAfterPoint(totalVolume / 1000000000, 3)}B
+						${getBigNumber(totalVolume)}
 					</div>
 					<div className="buttons">
 						{showWalletButton && (

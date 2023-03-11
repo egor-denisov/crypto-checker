@@ -9,3 +9,18 @@ export const validateEmail = (email: string) => {
 		/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 	)
 }
+export const zerosAfterPoint = (number: number, count: number): string => {
+	return (Math.floor(number * 10 ** count) / 10 ** count).toFixed(count)
+}
+export const getBigNumber = (number: number): string => {
+	switch (true) {
+		case number > 100000000:
+			return zerosAfterPoint(number / 1000000000, 3) + 'B'
+		case number > 1000000:
+			return zerosAfterPoint(number / 1000000, 3) + 'M'
+		case number > 1000:
+			return zerosAfterPoint(number / 1000, 3) + 'K'
+		default:
+			return zerosAfterPoint(number, 3)
+	}
+}
