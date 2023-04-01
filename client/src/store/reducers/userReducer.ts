@@ -39,6 +39,16 @@ export const UserReducer = (state = initialUser, action: UserAction) => {
 			}
 		case UserActionTypes.LOGOUT_USER:
 			return initialUser
+		case UserActionTypes.UPDATE_USER:
+			return { ...state, data: { ...state.data, ...action.payload } }
+		case UserActionTypes.UPDATE_USER_ERROR:
+			return {
+				...state,
+				error:
+					action.payload.field === 'email'
+						? 'Email already in use'
+						: 'Username is used'
+			}
 		default:
 			return state
 	}

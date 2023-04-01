@@ -34,7 +34,9 @@ export enum UserActionTypes {
 	FETCH_CHECKUSER_ERROR = 'FETCH_CHECKUSER_ERROR',
 	UPDATE_WASHLIST = 'UPDATE_WASHLIST',
 	UPDATE_WALLET = 'UPDATE_WALLET',
-	LOGOUT_USER = 'LOGOUT_USER'
+	LOGOUT_USER = 'LOGOUT_USER',
+	UPDATE_USER = 'UPDATE_USER',
+	UPDATE_USER_ERROR = 'UPDATE_USER_ERROR'
 }
 interface CheckUserAction {
 	type: UserActionTypes.FETCH_CHECKUSER
@@ -58,6 +60,19 @@ interface ChangeWallet {
 interface LogoutUser {
 	type: UserActionTypes.LOGOUT_USER
 }
+interface UpdateUser {
+	type: UserActionTypes.UPDATE_USER
+	payload: {
+		field: keyof UserDataType
+		value: UserDataType[keyof UserDataType]
+	}
+}
+interface UpdateUserError {
+	type: UserActionTypes.UPDATE_USER_ERROR
+	payload: {
+		field: keyof UserDataType
+	}
+}
 
 export type UserAction =
 	| CheckUserAction
@@ -66,3 +81,5 @@ export type UserAction =
 	| ChangeWashlist
 	| ChangeWallet
 	| LogoutUser
+	| UpdateUser
+	| UpdateUserError

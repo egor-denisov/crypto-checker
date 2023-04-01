@@ -31,9 +31,9 @@ const MiniCoinCards: FC = () => {
 		searchString,
 		setSearchString,
 		massivOfCoins
-	} = useTrackerCoinTable(rates, pagination, setPagination, data, loading)
+	} = useTrackerCoinTable(rates, pagination, setPagination, data)
 
-	if (loading && Object.keys(rates).length !== coins.size) return <MyLoader />
+	if (loading) return <MyLoader />
 	return (
 		<div className="main">
 			<SortingNavbar

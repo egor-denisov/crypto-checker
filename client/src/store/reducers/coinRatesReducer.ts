@@ -20,7 +20,7 @@ export const CoinRatesReducer = (
 		case CoinRatesActionTypes.FETCH_COIN_RATE_SUCCESS:
 			return {
 				...state,
-				loading: !(Object.keys(state.rates).length === coins.size),
+				loading: false,
 				rates: { ...state.rates, ...action.payload }
 			}
 		case CoinRatesActionTypes.FETCH_COIN_RATES_ERROR:

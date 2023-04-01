@@ -37,7 +37,6 @@ const Washlist = () => {
 		pagination,
 		setPagination,
 		data,
-		loading,
 		true
 	)
 	return (

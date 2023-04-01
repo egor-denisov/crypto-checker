@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import UserSVG from '../svg/User'
 import SettingsSVG from '../svg/Settings'
-import UserAuth from './UserAuth'
+import UserAuth from './UserAuth/UserAuth'
 import { uniteClasses } from '../utils/helper'
 import Settings from './Settings'
 

@@ -579,6 +579,20 @@ a {
 			padding-top: 1px;
 		}
 	}
+	.input-block {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		justify-content: center;
+		align-items: end;
+		.input-and-button {
+			display: flex;
+			flex-direction: row;
+			.button {
+				margin-right: -12px;
+			}
+		}
+	}
 	.login-and-forgot {
 		display: flex;
 		flex-direction: row;
@@ -836,23 +850,23 @@ a {
 			font-weight: 500;
 			text-transform: capitalize;
 		}
-		.chart-doughnut {
-			height: 20vw;
-			width: 20vw;
-			display: inline-block;
-			position: relative;
-			.balance {
-				position: absolute;
-				top: 0;
-				right: 0;
-				bottom: 0;
-				left: 0;
+		.main {
+			display: flex;
+			justify-content: center;
+			.chart-doughnut {
+				height: 20vw;
+				width: 20vw;
+				display: inline-block;
+				position: relative;
 				display: flex;
 				justify-content: center;
-				align-items: center;
-				font-size: 24px;
-				font-weight: 500;
-				color: $black-olive;
+				.balance {
+					position: absolute;
+					top: calc(10vw - 14px);
+					font-size: 24px;
+					font-weight: 500;
+					color: $black-olive;
+				}
 			}
 		}
 	}

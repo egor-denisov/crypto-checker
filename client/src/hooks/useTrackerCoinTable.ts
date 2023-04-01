@@ -16,7 +16,6 @@ export const useTrackerCoinTable = (
 	pagination: Paginationtype,
 	setPagination: Function,
 	data: UserDataType,
-	loading: boolean,
 	onePage = false
 ) => {
 	const [typeOfSorting, setTypeOfSorting] = useState('capitalization')
@@ -36,26 +35,24 @@ export const useTrackerCoinTable = (
 		)
 	}, [pagination.page])
 	useEffect(() => {
-		if (!loading) {
-			const res = getSortMassiv(
-				`${typeOfSorting}-${sortingDirection}`,
-				rates,
-				searchString
-			)
-			if (!onePage)
-				setPagination({
-					...pagination,
-					page: 0,
-					countOfPages: getCountOfPages(pagination.limit, res.length)
-				})
-			setMassivOfCoins(getPaginationPage(res, pagination))
-		}
+		const res = getSortMassiv(
+			`${typeOfSorting}-${sortingDirection}`,
+			rates,
+			searchString
+		)
+		if (!onePage)
+			setPagination({
+				...pagination,
+				page: 0,
+				countOfPages: getCountOfPages(pagination.limit, res.length)
+			})
+		setMassivOfCoins(getPaginationPage(res, pagination))
 	}, [
 		typeOfSorting,
 		sortingDirection,
 		searchString,
 		data.washlist,
-		loading,
+		rates,
 		pagination.limit
 	])
 	return {

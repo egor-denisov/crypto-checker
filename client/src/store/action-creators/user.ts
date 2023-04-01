@@ -238,3 +238,29 @@ export const logoutUser = () => {
 		} catch (e) {}
 	}
 }
+
+export const updateUser = (
+	id: UserDataType['id'],
+	field: keyof UserDataType,
+	value: UserDataType[typeof field]
+) => {
+	return async (dispatch: Dispatch<UserAction>) => {
+		try {
+			const response = await axios.post(
+				`http://localhost:1234/api/user/update_user`,
+				{ id: id, field: field, value: value }
+			)
+			if (response.data.update) {
+				dispatch({
+					type: UserActionTypes.UPDATE_USER,
+					payload: { field: field, value: value }
+				})
+			} else {
+				dispatch({
+					type: UserActionTypes.UPDATE_USER_ERROR,
+					payload: { field: response.data[field] }
+				})
+			}
+		} catch (e) {}
+	}
+}

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import classes from './MyNumber.module.scss'
 type props = {
 	value: string | number
@@ -6,7 +6,9 @@ type props = {
 }
 const MyNumber: FC<props> = ({ value, changeNumber }) => {
 	const [tempValue, setTempValue] = useState(String(value))
-	const [step, setStep] = useState(String(value).split('.')[1]?.length || 1)
+	const [step, setStep] = useState(
+		1 / 10 ** (String(value).split('.')[1]?.length || 0)
+	)
 	const onChange = (e: React.FormEvent<HTMLInputElement>) => {
 		const alpha = '.0123456789'
 		const str = e.currentTarget.value
@@ -25,21 +27,22 @@ const MyNumber: FC<props> = ({ value, changeNumber }) => {
 		}
 	}
 	const decrease = () => {
-		const res = (Number(value) - step).toFixed(
-			String(tempValue).split('.')[1]?.length || 0
-		)
+		const res = (Number(value) - step).toFixed(8)
 		if (Number(res) >= 0) {
 			changeNumber(res)
-			setTempValue(res)
 		}
 	}
 	const increase = () => {
-		const res = (Number(value) + step).toFixed(
-			String(tempValue).split('.')[1]?.length || 0
-		)
+		const res = (Number(value) + step).toFixed(8)
 		changeNumber(res)
-		setTempValue(res)
 	}
+	useEffect(() => {
+		const currentDiffStep = Math.abs(Number(tempValue) - Number(value))
+		if (currentDiffStep > 1 || currentDiffStep === Number(value)) {
+			setStep(1 / 10 ** (String(value).split('.')[1]?.length || 0))
+		}
+		setTempValue(String(value))
+	}, [value])
 	return (
 		<div className={classes.MyNumber}>
 			<div className={classes.numberMinus} onClick={decrease}>

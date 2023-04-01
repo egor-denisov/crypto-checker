@@ -7,11 +7,12 @@
 	flex-direction: row;
 	flex-wrap: nowrap;
 	background-color: white;
-	border: 2px solid rgba($color: $black-olive, $alpha: 0.4);
+	border: 2px solid $black-olive;
 	.number {
-		padding: 5px 10px;
+		padding: 7px 10px;
 		outline: none;
 		text-align: center;
+		font-size: 18px;
 	}
 	.number::-webkit-inner-spin-button {
 		display: none;
@@ -20,15 +21,15 @@
 	.numberPlus,
 	.numberMinus {
 		background-color: white;
-		color: rgba($color: $black-olive, $alpha: 0.8);
+		color: $black-olive;
 		border: none;
 		font-size: 20px;
 	}
 	.numberPlus {
-		border-left: 1px solid rgba($color: $black-olive, $alpha: 0.4);
+		border-left: 1px solid $black-olive;
 	}
 	.numberMinus {
-		border-right: 1px solid rgba($color: $black-olive, $alpha: 0.4);
+		border-right: 1px solid $black-olive;
 	}
 	.numberPlus,
 	.numberMinus {
@@ -38,6 +39,7 @@
 		min-width: 25px;
 		cursor: pointer;
 		min-width: 30px;
+		user-select: none;
 	}
 }
 .MyNumber:hover {
