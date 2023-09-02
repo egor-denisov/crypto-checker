@@ -7,7 +7,7 @@ This project is under development.
 - [Live Demo](https://github.com/egor-denisov/crypto-checker#live-demo)
 - [Final product](https://github.com/egor-denisov/crypto-checker#final-product)
 - [Running the project](https://github.com/egor-denisov/crypto-checker#running-the-project)
-- [About the game](https://github.com/egor-denisov/crypto-checker#about-the-game)
+- [About the app](https://github.com/egor-denisov/crypto-checker#about-the-app)
 - [Features](https://github.com/egor-denisov/crypto-checker#features)
 - [Dependencies](https://github.com/egor-denisov/crypto-checker#dependencies)
 - [Credits](https://github.com/egor-denisov/crypto-checker#credits)
@@ -62,21 +62,24 @@ npm start
 ```
 Аfter executing these commands, you can go to http://localhost:3000/
 
-## About the game
+## About the app
 
-This part is not ready yet.
+The application was created to track the exchange rate of cryptocurrencies. 
 
 ## Features
 
-This part is not ready yet.
+- It is possible to mark the selected coin
+- It is possible to create a portfolio (wallet)
+- You can track the charts of cryptocurrencies
 
 ## Dependencies
 - React.js
 - Typescript
 - PostgreSQL
 - Node.js
-- SCSS
+- SASS
 
 ## Credits
 
-This part is not ready yet.
+- Charts are implemented using [chart.js](https://www.chartjs.org/)
+- Icons were taken from [iconer.app](https://iconer.app/iconic/)
