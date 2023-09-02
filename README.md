@@ -83,3 +83,4 @@ The application was created to track the exchange rate of cryptocurrencies.
 
 - Charts are implemented using [chart.js](https://www.chartjs.org/)
 - Icons were taken from [iconer.app](https://iconer.app/iconic/)
+- The data is taken from [coingecko.com](https://www.coingecko.com/)
